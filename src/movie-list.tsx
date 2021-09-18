@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-class MovieList extends React.PureComponent {
+interface Props {
+  movieList: string[];
+}
+
+class MovieList extends React.PureComponent<Props> {
   render() {
     const { movieList } = this.props;
 

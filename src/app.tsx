@@ -10,12 +10,14 @@ const moviesDB = [
   "Темный рыцарь",
   "Темный рыцарь 1",
   "Темный рыцарь 2",
+  "Темный рыцарь 3",
+  "Темный рыцарь 4",
 ];
 
 function App() {
   const [movies, setMovies] = useState(moviesDB);
 
-  const handleSearch = (searchText) => {
+  const handleSearch = (searchText: string) => {
     setMovies(moviesDB.filter((f) => f.search(searchText) !== -1));
   };
 
