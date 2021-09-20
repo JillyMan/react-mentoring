@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:prod": "cross-env NODE_ENV=production webpack-dev-server",
-    "start:dev": "cross-env NODE_ENV=development webpack-dev-server",
-    "build:prod": "cross-env NODE_ENV=production webpack",
-    "build:dev": "cross-env NODE_ENV=development webpack"
+    "start:prod": "cross-env NODE_ENV=production webpack-dev-server --config ./config/webpack.prod.js",
+    "start:dev": "cross-env NODE_ENV=development webpack-dev-server --config ./config/webpack.dev.js",
+    "build:prod": "cross-env NODE_ENV=production webpack --config ./config/webpack.prod.js",
+    "build:dev": "cross-env NODE_ENV=development webpack --config ./config/webpack.dev.js"
   },
   "repository": {
     "type": "git",
