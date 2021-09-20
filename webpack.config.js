@@ -5,6 +5,7 @@ const path = require('path');
 module.exports = {
     entry: './src/index.tsx',
     mode: process.env.NODE_ENV,
+    devtool: 'inline-source-map',
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: "[name].[contenthash].js",
@@ -24,6 +25,11 @@ module.exports = {
     resolve: {
         modules: [path.resolve(__dirname, './src'), 'node_modules'],
         extensions: ['.ts', '.tsx', '.js', '.jsx', 'json']
+    },
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+        },
     },
     module: {
         rules: [
