@@ -5,7 +5,7 @@ const path = require('path');
 module.exports = {
     entry: './src/index.tsx',
     mode: process.env.NODE_ENV,
-    devtool: 'inline-source-map',
+    devtool: process.env.NODE_ENV == 'development' ? 'inline-source-map' : undefined,
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: "[name].[contenthash].js",
