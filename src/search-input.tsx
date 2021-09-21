@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 
-const SearchInput = ({ onSearchClick }) => {
+interface Props { 
+  onSearchClick: (value: string) => void;
+}
+
+const SearchInput = ({ 
+  onSearchClick 
+}: Props) => {
   const [searchText, setSearchText] = useState("");
 
   const handleSearchClick = () => {
     onSearchClick(searchText);
   };
 
-  const handleTextSearchChange = (e) => {
+  const handleTextSearchChange = (e: any) => {
     setSearchText(e.target.value);
   };
 
