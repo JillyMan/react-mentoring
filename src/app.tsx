@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Grid } from '@mui/material';
-import { Content } from './modules/home-page/components/content/content';
 import { Header } from './modules/home-page/components/header/header';
 import { MainLogo } from './modules/home-page/components/shared/main-logo';
-
 import movies from './assets/data/movies.json';
 import { ContentContainer } from './modules/home-page/containers/content-container';
 
@@ -25,7 +23,7 @@ function App() {
             </Grid>
             <Grid item xs={12}>
                 <ContentContainer
-                    movies={movies ? movies.slice(1, 100) : []}
+                    movies={filteredMovies}
                 />
             </Grid>
             <Grid item xs={12}>

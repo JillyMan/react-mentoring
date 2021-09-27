@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import { MovieInfo } from "../../../../shared/types/movies";
-import { Grid, Typography } from '@mui/material';
+import { Grid, Rating, Typography } from '@mui/material';
 import DefaultImage from '../../../../assets/imges/no-image.png';
 import { Box } from '@mui/system';
 
@@ -13,6 +13,10 @@ interface Props {
 
 export const MovieCard = ({ movie }: Props) => {
     const [imgUrl, setImgUrl] = React.useState(movie.poster_path);
+
+    useEffect(() => {
+        setImgUrl(movie.poster_path);
+    }, [movie])
 
     return (
         <Box sx={{ borderRadius: 16, boxShadow: 3 }}>
@@ -26,7 +30,8 @@ export const MovieCard = ({ movie }: Props) => {
                     height="486px"
                     image={imgUrl}
                     alt="not found"
-                    onError={() => setImgUrl(DefaultImage)} />
+                    onError={() => setImgUrl(DefaultImage)}
+                />
                 <CardContent>
                     <Grid container>
                         <Grid item xs={9} zeroMinWidth>
@@ -44,6 +49,13 @@ export const MovieCard = ({ movie }: Props) => {
                             <Typography variant="body2" color="text.secondary">
                                 {movie.genres.length == 2 ? movie.genres.join(' & ') : movie.genres.join(', ')}
                             </Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Rating
+                                name="simple-controlled"
+                                value={movie.vote_average / 2.0}
+                                readOnly
+                            />
                         </Grid>
                     </Grid>
                 </CardContent>
