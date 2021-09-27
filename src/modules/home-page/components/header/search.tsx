@@ -26,7 +26,7 @@ export const SearchBox = ({ text, onSearchClick }: Props) => {
                         width: '100%',
                         height: HeightItem,
                         background: 'rgba(50, 50, 50, 0.8)',
-                        // todo: doesn't work, don't forget to fix it!!
+                        // todo: does not change color when click on input!
                         ':focus': {
                             borderColor: BackgroundColor,
                             outlineColor: 'white'

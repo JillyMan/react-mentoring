@@ -2,12 +2,19 @@ import React, { useState } from 'react';
 import { Box, Grid } from '@mui/material';
 import { Header } from './modules/home-page/components/header/header';
 import { MainLogo } from './modules/home-page/components/shared/main-logo';
-import movies from './assets/data/movies.json';
+import moviesDB from './assets/data/movies.json';
 import { ContentContainer } from './modules/home-page/containers/content-container';
 
-//todo: move code to home page container ? and appply search!
+const clamp = (num: number, min: number, max: number) => Math.min(Math.max(num, min), max);
+
 function App() {
-    const filteredMovies = movies.slice(1, 100);
+    const [filteredMovies, setMovies] = useState(moviesDB.slice(1, 100))
+
+    const onHandleSearchClick = (searchText: string) => {
+        let foundMovies = moviesDB.filter((f) => f.title.search(searchText) !== -1);
+        foundMovies = foundMovies.slice(0, clamp(foundMovies.length, 0, 100));
+        setMovies(foundMovies);
+    }
 
     return (
         <Grid
@@ -18,7 +25,7 @@ function App() {
             <Grid item xs={12}>
                 <Header
                     onAddMovieClick={() => console.log('try add')}
-                    onSearchClick={() => console.log('try search')}
+                    onSearchClick={onHandleSearchClick}
                 />
             </Grid>
             <Grid item xs={12}>
