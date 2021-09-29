@@ -20,6 +20,22 @@ const styles = {
 		backgroundPosition: 'center center',
 		backgroundSize: 'cover',
 	},
+	searchTitle: {
+		fontFamily: 'Montserrat',
+		fontWeight: 300,
+		fontSize: '40px',
+		lineHeight: '49px',
+	},
+	searchButton: {
+		width: 150,
+		height: 46,
+		marginTop: '22px',
+		color: '#F65261',
+		borderColor: '#F65261',
+		':hover': {
+			borderColor: '#F65261',
+		},
+	}
 };
 
 export const Header = ({ onAddMovieClick, onSearchClick }: Props) => {
@@ -35,16 +51,7 @@ export const Header = ({ onAddMovieClick, onSearchClick }: Props) => {
 						<Button
 							variant="outlined"
 							startIcon={<AddIcon />}
-							sx={{
-								width: 150,
-								height: 46,
-								marginTop: '22px',
-								color: '#F65261',
-								borderColor: '#F65261',
-								':hover': {
-									borderColor: '#F65261',
-								},
-							}}
+							sx={styles.searchButton}
 							onClick={() => onAddMovieClick()}
 						>
 							{' '}
@@ -53,15 +60,7 @@ export const Header = ({ onAddMovieClick, onSearchClick }: Props) => {
 					</Grid>
 					<Grid item xs={1} />
 					<Grid item xs={12} sx={{ marginLeft: '150px' }}>
-						<p
-							style={{
-								fontFamily: 'Montserrat',
-								fontWeight: 300,
-								fontSize: '40px',
-								lineHeight: '49px',
-								textTransform: 'uppercase',
-							}}
-						>
+						<p style={styles.searchTitle}>
 							FIND YOUR MOVIE
 						</p>
 					</Grid>

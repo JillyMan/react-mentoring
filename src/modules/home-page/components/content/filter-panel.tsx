@@ -48,11 +48,11 @@ export const FilterPanel = ({
                 </Tabs>
             </Grid>
             <Grid item xs={2}>
-                <FormControl sx={{ minWidth: 124 }}>
+                <FormControl sx={{ minWidth: 128 }}>
                     <InputLabel>Sort by</InputLabel>
                     <Select
                         value={newSelectedSortOptionValue}
-                        label="adad"
+                        label="Sort by"
                         autoWidth
                         onChange={onHandleSortOptionChange}
                     >

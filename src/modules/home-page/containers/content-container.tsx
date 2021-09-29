@@ -11,15 +11,20 @@ const genres = [
     'Crime',
 ];
 
+const sortOptionsNames = {
+    byDate: 'By date',
+    byRating: 'By rating',
+}
+
 const sortOptions = [
-    'By date',
-    'By rating'
+    sortOptionsNames.byDate,
+    sortOptionsNames.byRating
 ];
 
 function sortedMovies(option: string, movies: MovieInfo[]): MovieInfo[] {
-    if (option == 'By date') {
+    if (option == sortOptionsNames.byDate) {
         return movies.sort((a, b) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime());
-    } else if (option == 'By rating') {
+    } else if (option == sortOptionsNames.byRating) {
         return movies.sort((a, b) => b.vote_average - a.vote_average);
     }
 

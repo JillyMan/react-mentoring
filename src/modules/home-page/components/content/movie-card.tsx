@@ -22,12 +22,8 @@ export const MovieCard = ({ movie }: Props) => {
         <Box sx={{ borderRadius: 16, boxShadow: 3 }}>
             <Card>
                 <CardMedia
-                    sx={{
-                        justifyContent: 'center'
-                    }}
                     component="img"
-                    width="324px"
-                    height="486px"
+                    height="600px"
                     image={imgUrl}
                     alt="not found"
                     onError={() => setImgUrl(DefaultImage)}
@@ -52,7 +48,6 @@ export const MovieCard = ({ movie }: Props) => {
                         </Grid>
                         <Grid item xs={12}>
                             <Rating
-                                name="simple-controlled"
                                 value={movie.vote_average / 2.0}
                                 readOnly
                             />
