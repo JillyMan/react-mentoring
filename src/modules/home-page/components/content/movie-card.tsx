@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, ComponentType, useEffect } from 'react';
 import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
@@ -59,7 +59,7 @@ export const MovieCard = ({ movie }: Props) => {
     );
 }
 
-const WithError = (Component: any) => {
+const WithError = (Component: ComponentType<Props>) => {
     return (props: Props) => {
         if (props.movie) {
             return <Component {...props} />;
