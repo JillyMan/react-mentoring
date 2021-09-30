@@ -23,16 +23,16 @@ const sortOptions = [
 
 function sortedMovies(option: string, movies: MovieInfo[]): MovieInfo[] {
     if (option == sortOptionsNames.byDate) {
-        return movies.sort((a, b) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime());
+        return movies.sort((a, b) => a && b && new Date(b.release_date).getTime() - new Date(a.release_date).getTime());
     } else if (option == sortOptionsNames.byRating) {
-        return movies.sort((a, b) => b.vote_average - a.vote_average);
+        return movies.sort((a, b) => a && b && b.vote_average - a.vote_average);
     }
 
     return movies;
 }
 
 function filterByGenre(genre: string, movies: MovieInfo[]): MovieInfo[] {
-    return genre !== 'All' ? movies.filter(x => x.genres.includes(genre)) : movies;
+    return genre !== 'All' ? movies.filter(x => x && x.genres.includes(genre)) : movies;
 }
 
 interface Props {

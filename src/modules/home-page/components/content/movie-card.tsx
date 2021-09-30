@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Component, useEffect } from 'react';
 import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
@@ -58,3 +58,15 @@ export const MovieCard = ({ movie }: Props) => {
         </Box>
     );
 }
+
+const WithError = (Component: any) => {
+    return (props: Props) => {
+        if (props.movie) {
+            return <Component {...props} />;
+        }
+
+        return <h1>...Invalid movie info... (high order component test)</h1>
+    }
+}
+
+export const MovieCardWithError = WithError(MovieCard);

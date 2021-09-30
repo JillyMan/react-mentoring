@@ -8,7 +8,7 @@ import { ContentContainer } from './modules/home-page/containers/content-contain
 const clamp = (num: number, min: number, max: number) => Math.min(Math.max(num, min), max);
 
 function App() {
-    const [filteredMovies, setMovies] = useState(moviesDB.slice(1, 100))
+    const [filteredMovies, setMovies] = useState([moviesDB[0], null, ...moviesDB.slice(1, 50)])
 
     const onHandleSearchClick = (searchText: string) => {
         let foundMovies = moviesDB.filter((f) => f.title.search(searchText) !== -1);
