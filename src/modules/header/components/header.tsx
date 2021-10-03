@@ -3,10 +3,10 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { SearchBox } from './search';
 import Paper from '@mui/material/Paper';
-import { MainLogo } from '../shared/main-logo';
-import { AddMovieButtonContainer } from '../../../configuration-movie/containers/configration-movie-add-container';
-import BackgroundImage from '../../../../assets/imges/header-bg.png';
-import { MovieConfig } from '../../../../shared/types/movies';
+import { MainLogo } from '../../shared/main-logo';
+import { AddMovieButtonContainer } from '../../configuration-movie/containers/configration-movie-add-container';
+import BackgroundImage from '../../../assets/imges/header-bg.png';
+import { MovieConfig } from '../../../shared/types/movies';
 
 interface Props {
 	avaliableGenres: string[];

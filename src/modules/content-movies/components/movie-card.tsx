@@ -1,11 +1,15 @@
-import React, { Component, ComponentType, useEffect } from 'react';
-import CardContent from "@mui/material/CardContent";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-import { MovieConfig } from "../../../../shared/types/movies";
-import { Grid, Rating, Typography } from '@mui/material';
-import DefaultImage from '../../../../assets/imges/no-image.png';
-import { Box } from '@mui/system';
+import React, { ComponentType, useEffect } from 'react';
+import {
+    Box,
+    Grid,
+    CardMedia,
+    CardContent,
+    Card,
+    Rating,
+    Typography
+} from '@mui/material';
+import DefaultImage from '../../../assets/imges/no-image.png';
+import { MovieConfig } from '../../../shared/types/movies';
 
 interface Props {
     movie: MovieConfig;

@@ -37,7 +37,6 @@ const CssTextField = styled(TextField)({
     },
 });
 
-
 export const SearchBox = ({ text, onSearchClick }: Props) => {
     const [seachText, setSearchText] = useState('');
 

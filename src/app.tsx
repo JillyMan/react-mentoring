@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Box, Grid } from '@mui/material';
-import { Header } from './modules/home-page/components/header/header';
-import { MainLogo } from './modules/home-page/components/shared/main-logo';
+import { Header } from './modules/header/components/header';
+import { MainLogo } from './modules/shared/main-logo';
 import { getMovies, addMovie } from './shared/services/movies-services';
 
-import { ContentContainer } from './modules/home-page/containers/content-container';
+import { ContentContainer } from './modules/content-movies/containers/content-container';
 import { MovieConfig } from './shared/types/movies';
 
 const clamp = (num: number, min: number, max: number) => Math.min(Math.max(num, min), max);

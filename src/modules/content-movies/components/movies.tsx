@@ -1,7 +1,7 @@
 import React from 'react';
-import { MovieConfig } from "../../../../shared/types/movies";
 import { Grid } from '@mui/material';
 import { MovieCardWithError } from './movie-card';
+import { MovieConfig } from "../../../shared/types/movies";
 
 interface Props {
     movies: MovieConfig[];

@@ -1,10 +1,8 @@
-import { Box } from '@mui/system';
-import Typography from '@mui/material/Typography';
 import React from 'react';
-import { FilterPanel } from './filter-panel';
-import { Grid } from '@mui/material';
-import { MovieConfig } from '../../../../shared/types/movies';
+import { Grid, Box } from '@mui/material';
 import { Movies } from './movies';
+import { FilterPanel } from './filter-panel';
+import { MovieConfig } from '../../../shared/types/movies';
 
 interface Props {
     selectedOption: string;

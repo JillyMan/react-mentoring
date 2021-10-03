@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MovieConfig } from "../../../shared/types/movies";
-import { Content } from '../components/content/content';
+import { Content } from '../components/content';
 
 const genres = [
     'All',
@@ -63,5 +63,4 @@ export const ContentContainer = ({ movies }: Props) => {
             onSortOptionChanged={onHandleSortChange}
         />
     )
-
 }
