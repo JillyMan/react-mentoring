@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Box } from '@mui/material';
 import { Movies } from './movies';
 import { FilterPanel } from './filter-panel';
-import { MovieConfig } from '../../../shared/types/movies';
+import { MovieConfig } from 'shared/types/movies';
 
 interface Props {
     selectedOption: string;
@@ -25,11 +25,7 @@ export const Content = ({
 }: Props) => {
     return (
         <Box sx={{ width: '100%' }}>
-            <Grid
-                container
-                rowSpacing={1}
-                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-            >
+            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={12}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <FilterPanel
@@ -43,7 +39,9 @@ export const Content = ({
                     </Box>
                 </Grid>
                 <Grid item xs={12} sx={{ margin: '0 0 0 50px' }}>
-                    <p><b>{movies ? movies.length : 0}</b> movies found</p>
+                    <p>
+                        <b>{movies ? movies.length : 0}</b> movies found
+                    </p>
                 </Grid>
                 <Grid item xs={12} sx={{ margin: '50px 50px 0 50px' }}>
                     <Movies movies={movies} />
@@ -51,4 +49,4 @@ export const Content = ({
             </Grid>
         </Box>
     );
-}
+};

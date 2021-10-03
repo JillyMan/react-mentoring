@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from '@mui/material';
 import { MovieCardWithError } from './movie-card';
-import { MovieConfig } from "../../../shared/types/movies";
+import { MovieConfig } from 'shared/types/movies';
 
 interface Props {
     movies: MovieConfig[];
@@ -17,4 +17,4 @@ export const Movies = ({ movies }: Props) => {
             ))}
         </Grid>
     );
-}
+};

@@ -41,4 +41,4 @@ export const movieConfigNames = {
     revenue: 'revenue',
     genres: 'genres',
     runtime: 'runtime',
-}
+};

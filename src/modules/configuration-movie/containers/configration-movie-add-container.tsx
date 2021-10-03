@@ -3,7 +3,7 @@ import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { ConfigurationMovie } from '../components/configuration-movie';
-import { initialMovieConfig, MovieConfig } from '../../../shared/types/movies';
+import { initialMovieConfig, MovieConfig } from 'shared/types/movies';
 
 const styles = {
     searchButton: {
@@ -15,7 +15,7 @@ const styles = {
         ':hover': {
             borderColor: '#F65261',
         },
-    }
+    },
 };
 
 interface Props {
@@ -31,12 +31,12 @@ export const AddMovieButtonContainer = ({ avaliableGenres, onSubmitClick }: Prop
     const onSubmitHandle = (movie: MovieConfig) => {
         onHandleClose();
         onSubmitClick(movie);
-    }
+    };
 
     return (
         <>
             <Button
-                variant="outlined"
+                variant='outlined'
                 startIcon={<AddIcon />}
                 sx={styles.searchButton}
                 onClick={onHandleOpen}
@@ -44,10 +44,7 @@ export const AddMovieButtonContainer = ({ avaliableGenres, onSubmitClick }: Prop
                 {' '}
                 Add Movie
             </Button>
-            <Modal
-                open={open}
-                onClose={onHandleClose}
-            >
+            <Modal open={open} onClose={onHandleClose}>
                 <ConfigurationMovie
                     configTitle='ADD'
                     avaliableGenres={avaliableGenres}
@@ -55,7 +52,6 @@ export const AddMovieButtonContainer = ({ avaliableGenres, onSubmitClick }: Prop
                     onSubmitClick={onSubmitHandle}
                 />
             </Modal>
-
         </>
     );
-}
+};

@@ -1,0 +1,6 @@
+dist
+node_modules
+webpack.*.js
+assets
+*.config.js
+lib

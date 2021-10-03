@@ -22,9 +22,8 @@ const styles = {
         height: HeightItem,
         background: BackgroundColor,
         ':hover': { background: BackgroundColor },
-    }
-}
-
+    },
+};
 
 const CssTextField = styled(TextField)({
     '& label.Mui-focused': {
@@ -44,16 +43,16 @@ export const SearchBox = ({ text, onSearchClick }: Props) => {
         <Grid container spacing={2}>
             <Grid item xs={8}>
                 <CssTextField
-                    id="outlined-search"
+                    id='outlined-search'
                     label={text}
-                    type="search"
+                    type='search'
                     onChange={(e) => setSearchText(e.target.value)}
                     sx={styles.searchInputStyle}
                 />
             </Grid>
             <Grid item xs={4}>
                 <Button
-                    variant="contained"
+                    variant='contained'
                     onClick={() => onSearchClick(seachText)}
                     sx={styles.searchButton}
                 >
