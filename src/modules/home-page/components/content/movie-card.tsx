@@ -2,13 +2,13 @@ import React, { Component, ComponentType, useEffect } from 'react';
 import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
-import { MovieInfo } from "../../../../shared/types/movies";
+import { MovieConfig } from "../../../../shared/types/movies";
 import { Grid, Rating, Typography } from '@mui/material';
 import DefaultImage from '../../../../assets/imges/no-image.png';
 import { Box } from '@mui/system';
 
 interface Props {
-    movie: MovieInfo;
+    movie: MovieConfig;
 }
 
 export const MovieCard = ({ movie }: Props) => {
@@ -65,7 +65,7 @@ const WithError = (Component: ComponentType<Props>) => {
             return <Component {...props} />;
         }
 
-        return <h1>...Invalid movie info... (high order component test)</h1>
+        return <h1>...Invalid movie config... (high order component test)</h1>
     }
 }
 

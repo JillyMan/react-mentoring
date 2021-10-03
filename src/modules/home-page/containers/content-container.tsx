@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MovieInfo } from "../../../shared/types/movies";
+import { MovieConfig } from "../../../shared/types/movies";
 import { Content } from '../components/content/content';
 
 const genres = [
@@ -21,7 +21,7 @@ const sortOptions = [
     sortOptionsNames.byRating
 ];
 
-function sortedMovies(option: string, movies: MovieInfo[]): MovieInfo[] {
+function sortedMovies(option: string, movies: MovieConfig[]): MovieConfig[] {
     if (option == sortOptionsNames.byDate) {
         return movies.sort((a, b) => a && b && new Date(b.release_date).getTime() - new Date(a.release_date).getTime());
     } else if (option == sortOptionsNames.byRating) {
@@ -31,12 +31,12 @@ function sortedMovies(option: string, movies: MovieInfo[]): MovieInfo[] {
     return movies;
 }
 
-function filterByGenre(genre: string, movies: MovieInfo[]): MovieInfo[] {
+function filterByGenre(genre: string, movies: MovieConfig[]): MovieConfig[] {
     return genre !== 'All' ? movies.filter(x => x && x.genres.includes(genre)) : movies;
 }
 
 interface Props {
-    movies: MovieInfo[];
+    movies: MovieConfig[];
 }
 
 export const ContentContainer = ({ movies }: Props) => {

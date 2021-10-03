@@ -2,18 +2,36 @@ import React, { useState } from 'react';
 import { Box, Grid } from '@mui/material';
 import { Header } from './modules/home-page/components/header/header';
 import { MainLogo } from './modules/home-page/components/shared/main-logo';
-import moviesDB from './assets/data/movies.json';
+import { getMovies, addMovie } from './shared/services/movies-services';
+
 import { ContentContainer } from './modules/home-page/containers/content-container';
+import { MovieConfig } from './shared/types/movies';
 
 const clamp = (num: number, min: number, max: number) => Math.min(Math.max(num, min), max);
+
+let moviesDB = getMovies();
+
+const genres = [
+    'Action',
+    'Documentary',
+    'Comedy',
+    'Horror',
+    'Crime',
+];
 
 function App() {
     const [filteredMovies, setMovies] = useState([moviesDB[0], null, ...moviesDB.slice(1, 50)])
 
     const onHandleSearchClick = (searchText: string) => {
-        let foundMovies = moviesDB.filter((f) => f.title.search(searchText) !== -1);
+        let foundMovies = moviesDB.filter((m) => m.title.search(searchText) !== -1);
         foundMovies = foundMovies.slice(0, clamp(foundMovies.length, 0, 100));
         setMovies(foundMovies);
+    }
+
+    const onHandleAddMovie = (movie: MovieConfig) => {
+        addMovie(movie);
+        moviesDB = getMovies();
+        setMovies([moviesDB[0], null, ...moviesDB.slice(1, 50)])
     }
 
     return (
@@ -24,13 +42,14 @@ function App() {
         >
             <Grid item xs={12}>
                 <Header
-                    onAddMovieClick={() => console.log('try add')}
+                    avaliableGenres={genres}
+                    onAddMovieClick={onHandleAddMovie}
                     onSearchClick={onHandleSearchClick}
                 />
             </Grid>
             <Grid item xs={12}>
                 <ContentContainer
-                    movies={filteredMovies}
+                    movies={filteredMovies || []}
                 />
             </Grid>
             <Grid item xs={12}>

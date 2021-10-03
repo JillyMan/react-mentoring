@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 import { FilterPanel } from './filter-panel';
 import { Grid } from '@mui/material';
-import { MovieInfo } from '../../../../shared/types/movies';
+import { MovieConfig } from '../../../../shared/types/movies';
 import { Movies } from './movies';
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
     onOptionChanged: (option: string) => void;
     onSortOptionChanged: (value: string) => void;
 
-    movies: MovieInfo[];
+    movies: MovieConfig[];
 }
 
 export const Content = ({

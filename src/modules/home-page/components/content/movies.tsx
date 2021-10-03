@@ -1,10 +1,10 @@
 import React from 'react';
-import { MovieInfo } from "../../../../shared/types/movies";
+import { MovieConfig } from "../../../../shared/types/movies";
 import { Grid } from '@mui/material';
 import { MovieCardWithError } from './movie-card';
 
 interface Props {
-    movies: MovieInfo[];
+    movies: MovieConfig[];
 }
 
 export const Movies = ({ movies }: Props) => {
