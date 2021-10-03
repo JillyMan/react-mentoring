@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Grid, Paper } from '@mui/material';
 import { SearchBox } from './search';
 import { MovieConfig } from 'shared/types/movies';
-import { MainLogo } from 'modules/shared/main-logo';
+import { MainLogo } from 'modules/shared/components/main-logo';
 import BackgroundImage from 'assets/imges/header-bg.png';
 import { AddMovieButtonContainer } from 'modules/configuration-movie/containers/configration-movie-add-container';
 
