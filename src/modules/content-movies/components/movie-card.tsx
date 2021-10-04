@@ -7,16 +7,28 @@ import {
     Card,
     Rating,
     Typography,
+    SpeedDial,
+    SpeedDialAction,
+    SpeedDialIcon,
+    SpeedDialProps,
 } from '@mui/material';
 import DefaultImage from 'assets/imges/no-image.png';
 import { MovieConfig } from 'shared/types/movies';
+import { ConfigurationMovieSpeedDialContainer } from 'modules/configuration-movie/containers/configuration-movie-edit-delete-speed-dial';
 
 interface Props {
     movie: MovieConfig;
 }
 
+const formatArrayValues = (values: string[]) =>
+    values.length == 2 ? values.join(' & ') : values.join(', ');
+
+const genres = ['Action', 'Documentary', 'Comedy', 'Horror', 'Crime'];
+
 export const MovieCard = ({ movie }: Props) => {
     const [imgUrl, setImgUrl] = React.useState(movie.poster_path);
+
+    const [hidden, setHidden] = React.useState(true);
 
     useEffect(() => {
         setImgUrl(movie.poster_path);
@@ -24,7 +36,7 @@ export const MovieCard = ({ movie }: Props) => {
 
     return (
         <Box sx={{ borderRadius: 16, boxShadow: 3 }}>
-            <Card>
+            <Card onMouseOver={() => setHidden(false)} onMouseOut={() => setHidden(true)}>
                 <CardMedia
                     component='img'
                     height='600px'
@@ -32,6 +44,7 @@ export const MovieCard = ({ movie }: Props) => {
                     alt='not found'
                     onError={() => setImgUrl(DefaultImage)}
                 />
+                <ConfigurationMovieSpeedDialContainer hidden={hidden} movie={movie} />
                 <CardContent>
                     <Grid container>
                         <Grid item xs={9} zeroMinWidth>
@@ -47,9 +60,7 @@ export const MovieCard = ({ movie }: Props) => {
                         </Grid>
                         <Grid item xs={12}>
                             <Typography variant='body2' color='text.secondary'>
-                                {movie.genres.length == 2
-                                    ? movie.genres.join(' & ')
-                                    : movie.genres.join(', ')}
+                                {formatArrayValues(movie.genres)}
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>

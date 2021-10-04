@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
+import { allGenres } from 'shared/types/genres';
 import { MovieConfig } from 'shared/types/movies';
 import { Content } from '../components/content';
-
-const genres = ['All', 'Action', 'Documentary', 'Comedy', 'Horror', 'Crime'];
 
 const sortOptionsNames = {
     byDate: 'By date',
@@ -35,7 +34,7 @@ interface Props {
 }
 
 export const ContentContainer = ({ movies }: Props) => {
-    const [selectedGenre, setSelectedGenre] = useState(genres[0]);
+    const [selectedGenre, setSelectedGenre] = useState(allGenres[0]);
     const [sortOption, setSortOption] = useState(sortOptions[0]);
 
     const filterdMovies = sortedMovies(sortOption, filterByGenre(selectedGenre, movies));
@@ -50,7 +49,7 @@ export const ContentContainer = ({ movies }: Props) => {
 
     return (
         <Content
-            options={genres}
+            options={allGenres}
             selectedOption={selectedGenre}
             sortOptions={sortOptions}
             movies={filterdMovies}

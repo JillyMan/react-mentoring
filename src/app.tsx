@@ -3,7 +3,6 @@ import { Box, Grid } from '@mui/material';
 import { Header } from './modules/header/components/header';
 import { MainLogo } from './modules/shared/components/main-logo';
 import { getMovies, addMovie } from './shared/services/movies-services';
-
 import { ContentContainer } from './modules/content-movies/containers/content-container';
 import { MovieConfig } from './shared/types/movies';
 
@@ -11,8 +10,6 @@ const clamp = (num: number, min: number, max: number) =>
     Math.min(Math.max(num, min), max);
 
 let moviesDB = getMovies();
-
-const genres = ['Action', 'Documentary', 'Comedy', 'Horror', 'Crime'];
 
 function App() {
     const [filteredMovies, setMovies] = useState([
@@ -37,7 +34,6 @@ function App() {
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             <Grid item xs={12}>
                 <Header
-                    avaliableGenres={genres}
                     onAddMovieClick={onHandleAddMovie}
                     onSearchClick={onHandleSearchClick}
                 />

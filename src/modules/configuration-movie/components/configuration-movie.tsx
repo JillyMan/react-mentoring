@@ -2,11 +2,8 @@ import React from 'react';
 import DatePicker from '@mui/lab/DatePicker';
 import SendIcon from '@mui/icons-material/Send';
 import {
-    Box,
     Grid,
     Typography,
-    Button,
-    TextField,
     InputLabel,
     FormControl,
     ListItemText,
@@ -18,6 +15,10 @@ import {
 } from '@mui/material';
 import { MovieConfig, movieConfigNames } from 'shared/types/movies';
 import { formatDate } from 'shared/utils/date-format';
+import { ConfigurationMovieBox } from './configuration-movie-box';
+import { SumbitButton } from 'modules/shared/components/submit-button';
+import { Input } from 'modules/shared/components/input';
+import { ResetButton } from 'modules/shared/components/reset-button';
 
 interface Props {
     configTitle: 'ADD' | 'EDIT';
@@ -25,17 +26,6 @@ interface Props {
     avaliableGenres: string[];
     onSubmitClick: (movieConfig: MovieConfig) => void;
 }
-
-const boxStyle = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
 
 const HeightItem = 57;
 
@@ -112,17 +102,21 @@ export const ConfigurationMovie = ({
         });
     };
 
+    const allGenres = [
+        ...avaliableGenres,
+        ...config.genres.map((g) => g.split(',')),
+    ] as string[];
     const submitButtonDisabled = !requiredFildFilled(requiredFildsName, config);
 
     return (
-        <Box sx={boxStyle}>
+        <ConfigurationMovieBox>
             <Typography variant='h6' component='h2'>
                 {configTitle} MOVIE
             </Typography>
             <br />
             <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 <Grid item xs={8}>
-                    <TextField
+                    <Input
                         label='Title'
                         variant='outlined'
                         style={configurationStyles.input}
@@ -143,12 +137,12 @@ export const ConfigurationMovie = ({
                             );
                         }}
                         renderInput={(params) => (
-                            <TextField style={configurationStyles.input} {...params} />
+                            <Input style={configurationStyles.input} {...params} />
                         )}
                     />
                 </Grid>
                 <Grid item xs={8}>
-                    <TextField
+                    <Input
                         style={configurationStyles.input}
                         label='Movie Url'
                         variant='outlined'
@@ -163,7 +157,7 @@ export const ConfigurationMovie = ({
                     />
                 </Grid>
                 <Grid item xs={4}>
-                    <TextField
+                    <Input
                         style={configurationStyles.input}
                         variant='outlined'
                         type='number'
@@ -189,8 +183,8 @@ export const ConfigurationMovie = ({
                             renderValue={(selected) => selected.join(', ')}
                             MenuProps={MenuProps}
                         >
-                            {avaliableGenres.map((genre) => (
-                                <MenuItem key={genre} value={genre}>
+                            {allGenres.map((genre, id) => (
+                                <MenuItem key={id} value={genre}>
                                     <Checkbox
                                         checked={config.genres.indexOf(genre) > -1}
                                     />
@@ -201,7 +195,7 @@ export const ConfigurationMovie = ({
                     </FormControl>
                 </Grid>
                 <Grid item xs={4}>
-                    <TextField
+                    <Input
                         style={configurationStyles.input}
                         variant='outlined'
                         type='number'
@@ -213,7 +207,7 @@ export const ConfigurationMovie = ({
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <TextField
+                    <Input
                         multiline
                         style={{ ...configurationStyles.input, height: '100%' }}
                         minRows={3}
@@ -225,23 +219,24 @@ export const ConfigurationMovie = ({
                         }
                     />
                 </Grid>
-                <Grid item xs={8} />
-                <Grid item>
-                    <Button variant='outlined' onClick={onResetHandle}>
+                <Grid item xs={6} />
+
+                <Grid item xs={3}>
+                    <ResetButton variant='outlined' onClick={onResetHandle}>
                         RESET
-                    </Button>
+                    </ResetButton>
                 </Grid>
-                <Grid item>
-                    <Button
+                <Grid item xs={3}>
+                    <SumbitButton
                         variant='contained'
                         endIcon={<SendIcon />}
                         onClick={onSubmitHandle}
                         disabled={submitButtonDisabled}
                     >
                         SUBMIT
-                    </Button>
+                    </SumbitButton>
                 </Grid>
             </Grid>
-        </Box>
+        </ConfigurationMovieBox>
     );
 };

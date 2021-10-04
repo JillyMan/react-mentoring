@@ -7,7 +7,6 @@ import BackgroundImage from 'assets/imges/header-bg.png';
 import { AddMovieButtonContainer } from 'modules/configuration-movie/containers/configration-movie-add-container';
 
 interface Props {
-    avaliableGenres: string[];
     onAddMovieClick: (movie: MovieConfig) => void;
     onSearchClick: (search: string) => void;
 }
@@ -27,7 +26,7 @@ const styles = {
     },
 };
 
-export const Header = ({ avaliableGenres, onAddMovieClick, onSearchClick }: Props) => {
+export const Header = ({ onAddMovieClick, onSearchClick }: Props) => {
     return (
         <Paper style={styles.paperContainer} square>
             <Box sx={{ width: '100%' }}>
@@ -37,10 +36,7 @@ export const Header = ({ avaliableGenres, onAddMovieClick, onSearchClick }: Prop
                         <MainLogo />
                     </Grid>
                     <Grid item xs={2}>
-                        <AddMovieButtonContainer
-                            avaliableGenres={avaliableGenres}
-                            onSubmitClick={onAddMovieClick}
-                        />
+                        <AddMovieButtonContainer onSubmitClick={onAddMovieClick} />
                     </Grid>
                     <Grid item xs={1} />
                     <Grid item xs={12} sx={{ marginLeft: '150px' }}>
