@@ -26,8 +26,6 @@ interface Props {
 const formatArrayValues = (values: string[]) =>
     values.length == 2 ? values.join(' & ') : values.join(', ');
 
-const genres = ['Action', 'Documentary', 'Comedy', 'Horror', 'Crime'];
-
 export const MovieCard = ({ movie, onDeleteMovie, onUpdateMovie }: Props) => {
     const [imgUrl, setImgUrl] = React.useState(movie.poster_path);
 

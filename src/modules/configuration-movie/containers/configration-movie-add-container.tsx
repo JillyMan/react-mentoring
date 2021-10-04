@@ -5,7 +5,7 @@ import Modal from '@mui/material/Modal';
 import { ConfigurationMovie } from '../components/configuration-movie';
 import { initialMovieConfig, MovieConfig } from 'shared/types/movies';
 import { styled } from '@mui/system';
-import { AddMovieButton } from '../components/movie-add-button';
+import { AddMovieButton } from '../components/configuration-movie-add-button';
 import { configurationGenres } from 'shared/types/genres';
 
 interface Props {

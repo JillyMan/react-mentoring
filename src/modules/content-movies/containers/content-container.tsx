@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { allGenres } from 'shared/types/genres';
 import { MovieConfig } from 'shared/types/movies';
-import { Content } from '../components/content';
+import { ContentMovies } from '../components/content-movies';
 
 const sortOptionsNames = {
     byDate: 'By date',
@@ -36,7 +36,11 @@ interface Props {
     onUpdateMovie: (movei: MovieConfig) => void;
 }
 
-export const ContentContainer = ({ movies, onDeleteMovie, onUpdateMovie }: Props) => {
+export const ContentMoviesContainer = ({
+    movies,
+    onDeleteMovie,
+    onUpdateMovie,
+}: Props) => {
     const [selectedGenre, setSelectedGenre] = useState(allGenres[0]);
     const [sortOption, setSortOption] = useState(sortOptions[0]);
 
@@ -51,7 +55,7 @@ export const ContentContainer = ({ movies, onDeleteMovie, onUpdateMovie }: Props
     };
 
     return (
-        <Content
+        <ContentMovies
             options={allGenres}
             selectedOption={selectedGenre}
             sortOptions={sortOptions}

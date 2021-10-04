@@ -8,7 +8,7 @@ import {
     deleteMovie,
     updateMovie,
 } from './shared/services/movies-services';
-import { ContentContainer } from './modules/content-movies/containers/content-container';
+import { ContentMoviesContainer } from './modules/content-movies/containers/content-container';
 import { MovieConfig } from './shared/types/movies';
 
 const clamp = (num: number, min: number, max: number) =>
@@ -55,7 +55,7 @@ function App() {
                 onAddMovieClick={onHandleAddMovie}
                 onSearchClick={onHandleSearchClick}
             />
-            <ContentContainer
+            <ContentMoviesContainer
                 onDeleteMovie={onHandleDeleteMovie}
                 onUpdateMovie={onHandleUpdateMovie}
                 movies={filteredMovies}

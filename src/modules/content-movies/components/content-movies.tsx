@@ -16,7 +16,7 @@ interface Props {
     onUpdateMovie: (movei: MovieConfig) => void;
 }
 
-export const Content = ({
+export const ContentMovies = ({
     selectedOption,
     options,
     sortOptions,
