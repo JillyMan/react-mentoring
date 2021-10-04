@@ -33,7 +33,7 @@ class SearchBox extends React.Component {
                     <SubmitButton
                         sx={{ width: '233px' }}
                         variant='contained'
-                        onClick={() => this.props.onSearchClick(seachText)}
+                        onClick={() => this.props.onSearchClick(this.state.searchText)}
                     >
                         SEARCH
                     </SubmitButton>
