@@ -1,0 +1,51 @@
+import React, { useState } from 'react';
+import Grid from '@mui/material/Grid';
+import { SumbitButton } from 'modules/shared/components/submit-button';
+import { Input } from 'modules/shared/components/input';
+import PropTypes from 'prop-types';
+
+class SearchBox extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            searchText: '',
+        };
+
+        this.onSearchChange = this.onSearchChange.bind(this);
+    }
+
+    onSearchChange(value) {
+        this.setState({ searchText: value });
+    }
+
+    render() {
+        return (
+            <Grid container spacing={2}>
+                <Grid item xs={8}>
+                    <Input
+                        id='outlined-search'
+                        label={this.props.text}
+                        type='search'
+                        onChange={(e) => this.onSearchChange(e.target.value)}
+                    />
+                </Grid>
+                <Grid item xs={4}>
+                    <SumbitButton
+                        sx={{ width: '233px' }}
+                        variant='contained'
+                        onClick={() => this.props.onSearchClick(seachText)}
+                    >
+                        SEARCH
+                    </SumbitButton>
+                </Grid>
+            </Grid>
+        );
+    }
+}
+
+SearchBox.propTypes = {
+    text: PropTypes.string,
+    onSearchClick: PropTypes.func,
+};
+
+export default SearchBox;

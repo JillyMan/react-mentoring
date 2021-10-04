@@ -22,6 +22,7 @@ module.exports = {
         }
     },
     resolve: {
+        roots: [dirname],
         modules: [
             path.resolve(dirname),
             'node_modules',

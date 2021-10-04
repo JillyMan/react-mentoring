@@ -1,10 +1,10 @@
 import React from 'react';
+import SearchBox from './search';
 import { Box, Grid, Paper } from '@mui/material';
-import { SearchBox } from './search';
 import { MovieConfig } from 'shared/types/movies';
 import { MainLogo } from 'modules/shared/components/main-logo';
-import BackgroundImage from 'assets/imges/header-bg.png';
 import { AddMovieButtonContainer } from 'modules/configuration-movie/containers/configration-movie-add-container';
+import BackgroundImage from 'assets/imges/header-bg.png';
 
 interface Props {
     onAddMovieClick: (movie: MovieConfig) => void;

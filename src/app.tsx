@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Grid } from '@mui/material';
+import { Box } from '@mui/material';
 import { Header } from './modules/header/components/header';
 import { MainLogo } from './modules/shared/components/main-logo';
 import { getMovies, addMovie } from './shared/services/movies-services';
@@ -31,22 +31,16 @@ function App() {
     };
 
     return (
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-            <Grid item xs={12}>
-                <Header
-                    onAddMovieClick={onHandleAddMovie}
-                    onSearchClick={onHandleSearchClick}
-                />
-            </Grid>
-            <Grid item xs={12}>
-                <ContentContainer movies={filteredMovies || []} />
-            </Grid>
-            <Grid item xs={12}>
-                <Box sx={{ marginLeft: '50%' }}>
-                    <MainLogo />
-                </Box>
-            </Grid>
-        </Grid>
+        <>
+            <Header
+                onAddMovieClick={onHandleAddMovie}
+                onSearchClick={onHandleSearchClick}
+            />
+            <ContentContainer movies={filteredMovies} />
+            <Box sx={{ marginLeft: '50%' }}>
+                <MainLogo />
+            </Box>
+        </>
     );
 }
 

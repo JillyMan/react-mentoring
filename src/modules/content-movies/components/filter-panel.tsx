@@ -43,7 +43,7 @@ export const FilterPanel = ({
     };
 
     return (
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid container>
             <Grid item xs={10}>
                 <Tabs value={newSelectedOptionValue} onChange={onHandleOptionChange}>
                     {options.map((value, id) => (
