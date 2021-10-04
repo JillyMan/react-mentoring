@@ -31,9 +31,12 @@ function filterByGenre(genre: string, movies: MovieConfig[]): MovieConfig[] {
 
 interface Props {
     movies: MovieConfig[];
+
+    onDeleteMovie: (id: number) => void;
+    onUpdateMovie: (movei: MovieConfig) => void;
 }
 
-export const ContentContainer = ({ movies }: Props) => {
+export const ContentContainer = ({ movies, onDeleteMovie, onUpdateMovie }: Props) => {
     const [selectedGenre, setSelectedGenre] = useState(allGenres[0]);
     const [sortOption, setSortOption] = useState(sortOptions[0]);
 
@@ -55,6 +58,8 @@ export const ContentContainer = ({ movies }: Props) => {
             movies={filterdMovies}
             onOptionChanged={onHandleGenreChange}
             onSortOptionChanged={onHandleSortChange}
+            onDeleteMovie={onDeleteMovie}
+            onUpdateMovie={onUpdateMovie}
         />
     );
 };

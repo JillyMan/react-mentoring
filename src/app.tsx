@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import { Header } from './modules/header/components/header';
 import { MainLogo } from './modules/shared/components/main-logo';
-import { getMovies, addMovie } from './shared/services/movies-services';
+import {
+    getMovies,
+    addMovie,
+    deleteMovie,
+    updateMovie,
+} from './shared/services/movies-services';
 import { ContentContainer } from './modules/content-movies/containers/content-container';
 import { MovieConfig } from './shared/types/movies';
 
@@ -24,10 +29,24 @@ function App() {
         setMovies(foundMovies);
     };
 
-    const onHandleAddMovie = (movie: MovieConfig) => {
-        addMovie(movie);
+    const updateMovies = () => {
         moviesDB = getMovies();
         setMovies([moviesDB[0], null, ...moviesDB.slice(1, 50)]);
+    };
+
+    const onHandleAddMovie = (movie: MovieConfig) => {
+        addMovie(movie);
+        updateMovies();
+    };
+
+    const onHandleDeleteMovie = (id: number) => {
+        deleteMovie(id);
+        updateMovies();
+    };
+
+    const onHandleUpdateMovie = (movie: MovieConfig) => {
+        updateMovie(movie);
+        updateMovies();
     };
 
     return (
@@ -36,7 +55,11 @@ function App() {
                 onAddMovieClick={onHandleAddMovie}
                 onSearchClick={onHandleSearchClick}
             />
-            <ContentContainer movies={filteredMovies} />
+            <ContentContainer
+                onDeleteMovie={onHandleDeleteMovie}
+                onUpdateMovie={onHandleUpdateMovie}
+                movies={filteredMovies}
+            />
             <Box sx={{ marginLeft: '50%' }}>
                 <MainLogo />
             </Box>

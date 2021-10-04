@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Grid from '@mui/material/Grid';
-import { SumbitButton } from 'modules/shared/components/submit-button';
+import { SubmitButton } from 'modules/shared/components/submit-button';
 import { Input } from 'modules/shared/components/input';
 import PropTypes from 'prop-types';
 
@@ -30,13 +30,13 @@ class SearchBox extends React.Component {
                     />
                 </Grid>
                 <Grid item xs={4}>
-                    <SumbitButton
+                    <SubmitButton
                         sx={{ width: '233px' }}
                         variant='contained'
                         onClick={() => this.props.onSearchClick(seachText)}
                     >
                         SEARCH
-                    </SumbitButton>
+                    </SubmitButton>
                 </Grid>
             </Grid>
         );

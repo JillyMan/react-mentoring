@@ -49,7 +49,7 @@ export const Header = ({ onAddMovieClick, onSearchClick }: Props) => {
                     >
                         <SearchBox
                             text='What do your want to watch?'
-                            onSearchClick={(s) => onSearchClick(s)}
+                            onSearchClick={(s: string) => onSearchClick(s)}
                         />
                     </Grid>
                 </Grid>

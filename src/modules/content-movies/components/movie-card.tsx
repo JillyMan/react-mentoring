@@ -14,10 +14,13 @@ import {
 } from '@mui/material';
 import DefaultImage from 'assets/imges/no-image.png';
 import { MovieConfig } from 'shared/types/movies';
-import { ConfigurationMovieSpeedDialContainer } from 'modules/configuration-movie/containers/configuration-movie-edit-delete-speed-dial';
+import { ConfigurationMovieSpeedDial } from 'modules/configuration-movie/components/configuration-movie-edit-delete-speed-dial';
 
 interface Props {
     movie: MovieConfig;
+
+    onDeleteMovie: (id: number) => void;
+    onUpdateMovie: (movei: MovieConfig) => void;
 }
 
 const formatArrayValues = (values: string[]) =>
@@ -25,7 +28,7 @@ const formatArrayValues = (values: string[]) =>
 
 const genres = ['Action', 'Documentary', 'Comedy', 'Horror', 'Crime'];
 
-export const MovieCard = ({ movie }: Props) => {
+export const MovieCard = ({ movie, onDeleteMovie, onUpdateMovie }: Props) => {
     const [imgUrl, setImgUrl] = React.useState(movie.poster_path);
 
     const [hidden, setHidden] = React.useState(true);
@@ -44,7 +47,12 @@ export const MovieCard = ({ movie }: Props) => {
                     alt='not found'
                     onError={() => setImgUrl(DefaultImage)}
                 />
-                <ConfigurationMovieSpeedDialContainer hidden={hidden} movie={movie} />
+                <ConfigurationMovieSpeedDial
+                    onDeleteMovie={onDeleteMovie}
+                    onUpdateMovie={onUpdateMovie}
+                    hidden={hidden}
+                    movie={movie}
+                />
                 <CardContent>
                     <Grid container>
                         <Grid item xs={9} zeroMinWidth>

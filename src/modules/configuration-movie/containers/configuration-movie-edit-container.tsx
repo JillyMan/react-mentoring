@@ -6,7 +6,6 @@ import { ConfigurationMovie } from '../components/configuration-movie';
 import { initialMovieConfig, MovieConfig } from 'shared/types/movies';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { SpeedDialAction } from '@mui/material';
-import { configurationGenres } from 'shared/types/genres';
 
 interface Props {
     show: boolean;
@@ -22,16 +21,7 @@ const ConfigurationMovieEditContainer = ({
     onSubmitClick,
     onCloseModal,
 }: Props) => {
-    return (
-        <Modal open={show} onClose={onCloseModal}>
-            <ConfigurationMovie
-                configTitle='EDIT'
-                avaliableGenres={configurationGenres}
-                movieConfig={movie}
-                onSubmitClick={onSubmitClick}
-            />
-        </Modal>
-    );
+    return <></>;
 };
 
 export const ConfigurationMovieEdit = ConfigurationMovieEditContainer;

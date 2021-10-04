@@ -6,7 +6,7 @@ import React from 'react';
 const HeightItem = 57;
 const BackgroundColor = '#F65261';
 
-export const SumbitButton = styled(Button)(() => ({
+export const SubmitButton = styled(Button)(() => ({
     height: HeightItem,
     width: '180px',
     background: BackgroundColor,

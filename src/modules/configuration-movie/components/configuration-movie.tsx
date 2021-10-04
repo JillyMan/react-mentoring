@@ -16,7 +16,7 @@ import {
 import { MovieConfig, movieConfigNames } from 'shared/types/movies';
 import { formatDate } from 'shared/utils/date-format';
 import { ConfigurationMovieBox } from './configuration-movie-box';
-import { SumbitButton } from 'modules/shared/components/submit-button';
+import { SubmitButton } from 'modules/shared/components/submit-button';
 import { Input } from 'modules/shared/components/input';
 import { ResetButton } from 'modules/shared/components/reset-button';
 
@@ -227,14 +227,14 @@ export const ConfigurationMovie = ({
                     </ResetButton>
                 </Grid>
                 <Grid item xs={3}>
-                    <SumbitButton
+                    <SubmitButton
                         variant='contained'
                         endIcon={<SendIcon />}
                         onClick={onSubmitHandle}
                         disabled={submitButtonDisabled}
                     >
                         SUBMIT
-                    </SumbitButton>
+                    </SubmitButton>
                 </Grid>
             </Grid>
         </ConfigurationMovieBox>
