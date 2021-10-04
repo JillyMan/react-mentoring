@@ -1,5 +1,5 @@
 import React from 'react';
-import { MovieInfo } from "../../../../shared/types/movies";
+import { MovieInfo } from '../../../../shared/types/movies';
 import { Grid } from '@mui/material';
 import { MovieCardWithError } from './movie-card';
 
@@ -17,4 +17,4 @@ export const Movies = ({ movies }: Props) => {
             ))}
         </Grid>
     );
-}
+};

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -19,11 +19,11 @@ export const FilterPanel = ({
     selectedSort,
     sortOptions,
     onOptionChanged,
-    onSortOptionChanged
+    onSortOptionChanged,
 }: FilterPanelProps) => {
-
-    const [newSelectedOptionValue, setNewSelectedOptionValue] = React.useState(selectedOption);
-    const [newSelectedSortOptionValue, setNewSelectedSortOptionValue] = React.useState(selectedSort);
+    const [newSelectedOptionValue, setNewSelectedOptionValue] = useState(selectedOption);
+    const [newSelectedSortOptionValue, setNewSelectedSortOptionValue] =
+        useState(selectedSort);
 
     const onHandleOptionChange = (_: React.SyntheticEvent, newValue: string) => {
         setNewSelectedOptionValue(newValue);
@@ -37,11 +37,9 @@ export const FilterPanel = ({
     };
 
     return (
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid container>
             <Grid item xs={10}>
-                <Tabs
-                    value={newSelectedOptionValue}
-                    onChange={onHandleOptionChange}>
+                <Tabs value={newSelectedOptionValue} onChange={onHandleOptionChange}>
                     {options.map((value, id) => (
                         <Tab label={value} value={value} key={id} />
                     ))}
@@ -52,14 +50,18 @@ export const FilterPanel = ({
                     <InputLabel>Sort by</InputLabel>
                     <Select
                         value={newSelectedSortOptionValue}
-                        label="Sort by"
+                        label='Sort by'
                         autoWidth
                         onChange={onHandleSortOptionChange}
                     >
-                        {sortOptions.map((o, i) => (<MenuItem key={i} value={o}>{o}</MenuItem>))}
+                        {sortOptions.map((o, i) => (
+                            <MenuItem key={i} value={o}>
+                                {o}
+                            </MenuItem>
+                        ))}
                     </Select>
                 </FormControl>
             </Grid>
-        </Grid >
+        </Grid>
     );
-}
+};
