@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DatePicker from '@mui/lab/DatePicker';
 import SendIcon from '@mui/icons-material/Send';
 import {
@@ -69,7 +69,7 @@ export const ConfigurationMovie = ({
     avaliableGenres,
     onSubmitClick,
 }: Props) => {
-    const [config, setConfig] = React.useState(movieConfig);
+    const [config, setConfig] = useState(movieConfig);
 
     const onKeyChangeHandle = (key: string, value: string | string[]) => {
         setConfig({ ...config, [key]: value });
@@ -102,10 +102,6 @@ export const ConfigurationMovie = ({
         });
     };
 
-    const allGenres = [
-        ...avaliableGenres,
-        ...config.genres.map((g) => g.split(',')),
-    ] as string[];
     const submitButtonDisabled = !requiredFildFilled(requiredFildsName, config);
 
     return (
@@ -183,7 +179,7 @@ export const ConfigurationMovie = ({
                             renderValue={(selected) => selected.join(', ')}
                             MenuProps={MenuProps}
                         >
-                            {allGenres.map((genre, id) => (
+                            {avaliableGenres.map((genre, id) => (
                                 <MenuItem key={id} value={genre}>
                                     <Checkbox
                                         checked={config.genres.indexOf(genre) > -1}

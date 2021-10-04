@@ -1,4 +1,4 @@
-import React, { ComponentType, useEffect } from 'react';
+import React, { ComponentType, useEffect, useState } from 'react';
 import {
     Box,
     Grid,
@@ -27,9 +27,8 @@ const formatArrayValues = (values: string[]) =>
     values.length == 2 ? values.join(' & ') : values.join(', ');
 
 export const MovieCard = ({ movie, onDeleteMovie, onUpdateMovie }: Props) => {
-    const [imgUrl, setImgUrl] = React.useState(movie.poster_path);
-
-    const [hidden, setHidden] = React.useState(true);
+    const [imgUrl, setImgUrl] = useState(movie.poster_path);
+    const [hidden, setHidden] = useState(true);
 
     useEffect(() => {
         setImgUrl(movie.poster_path);
