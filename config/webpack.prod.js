@@ -22,6 +22,7 @@ module.exports = {
         }
     },
     resolve: {
+        roots: [dirname],
         modules: [
             path.resolve(dirname),
             'node_modules',
@@ -41,6 +42,17 @@ module.exports = {
                 use: {
                     loader: "babel-loader"
                 }
+            },
+            {
+                test: /\.(png|jpg|gif)$/i,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 8192,
+                        },
+                    },
+                ],
             },
             {
                 test: /\.css$/,

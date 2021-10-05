@@ -1,35 +1,38 @@
-import React, { useState } from "react";
-import Counter from "./counter";
-import SearchInput from "./search-input";
-import MovieList from "./movie-list";
+import React, { useState } from 'react';
+import { Box } from '@mui/material';
+import { Header } from './modules/home-page/components/header/header';
+import { MainLogo } from './modules/home-page/components/shared/main-logo';
+import moviesDB from './assets/data/movies.json';
+import { ContentContainer } from './modules/home-page/containers/content-container';
 
-const moviesDB = [
-  "Побег из Шоушенка",
-  "Крестный отец",
-  "Крестный отец 2",
-  "Темный рыцарь",
-  "Темный рыцарь 1",
-  "Темный рыцарь 2",
-  "Темный рыцарь 3",
-  "Темный рыцарь 4",
-];
+const clamp = (num: number, min: number, max: number) =>
+    Math.min(Math.max(num, min), max);
 
 function App() {
-  const [movies, setMovies] = useState(moviesDB);
+    const [filteredMovies, setMovies] = useState([
+        moviesDB[0],
+        null,
+        ...moviesDB.slice(1, 50),
+    ]);
 
-  const handleSearch = (searchText: string) => {
-    setMovies(moviesDB.filter((f) => f.search(searchText) !== -1));
-  };
+    const onHandleSearchClick = (searchText: string) => {
+        let foundMovies = moviesDB.filter((f) => f.title.search(searchText) !== -1);
+        foundMovies = foundMovies.slice(0, clamp(foundMovies.length, 0, 100));
+        setMovies(foundMovies);
+    };
 
-  return (
-    <div className="App">
-      <SearchInput onSearchClick={handleSearch} />
-      <hr />
-      <MovieList movieList={movies} />
-      <hr />
-      <Counter />
-    </div>
-  );
+    return (
+        <>
+            <Header
+                onAddMovieClick={() => console.log('try add')}
+                onSearchClick={onHandleSearchClick}
+            />
+            <ContentContainer movies={filteredMovies} />
+            <Box sx={{ marginLeft: '50%' }}>
+                <MainLogo />
+            </Box>
+        </>
+    );
 }
 
 export default App;
