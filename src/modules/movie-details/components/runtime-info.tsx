@@ -1,10 +1,10 @@
 import React from 'react';
 
-interface RuntimeInfoProps {
+interface Props {
     runtime: number;
 }
 
-export const RuntimeInfo = ({ runtime }: RuntimeInfoProps) => {
+export const RuntimeInfo = ({ runtime }: Props) => {
     const h = Math.floor(runtime / 60);
     const m = runtime % 60;
     if (h > 0) {
