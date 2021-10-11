@@ -28,7 +28,7 @@ const styles = {
 
 export const Header = ({ onAddMovieClick, onSearchClick }: Props) => {
     return (
-        <Paper style={styles.paperContainer} square>
+        <Paper style={styles.paperContainer}>
             <Box sx={{ width: '100%' }}>
                 <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                     <Grid item xs={1} />

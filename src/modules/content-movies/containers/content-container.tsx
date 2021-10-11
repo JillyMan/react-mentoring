@@ -31,13 +31,14 @@ function filterByGenre(genre: string, movies: MovieConfig[]): MovieConfig[] {
 
 interface Props {
     movies: MovieConfig[];
-
     onDeleteMovie: (id: number) => void;
     onUpdateMovie: (movei: MovieConfig) => void;
+    onMovieClick: (movie: MovieConfig) => void;
 }
 
 export const ContentMoviesContainer = ({
     movies,
+    onMovieClick,
     onDeleteMovie,
     onUpdateMovie,
 }: Props) => {
@@ -60,6 +61,7 @@ export const ContentMoviesContainer = ({
             selectedOption={selectedGenre}
             sortOptions={sortOptions}
             movies={filterdMovies}
+            onMovieClick={onMovieClick}
             onOptionChanged={onHandleGenreChange}
             onSortOptionChanged={onHandleSortChange}
             onDeleteMovie={onDeleteMovie}

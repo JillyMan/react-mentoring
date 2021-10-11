@@ -10,6 +10,7 @@ interface Props {
     sortOptions: string[];
     movies: MovieConfig[];
 
+    onMovieClick: (movie: MovieConfig) => void;
     onOptionChanged: (option: string) => void;
     onSortOptionChanged: (value: string) => void;
     onDeleteMovie: (id: number) => void;
@@ -21,6 +22,7 @@ export const ContentMovies = ({
     options,
     sortOptions,
     movies,
+    onMovieClick,
     onOptionChanged,
     onSortOptionChanged,
     onDeleteMovie,
@@ -46,6 +48,7 @@ export const ContentMovies = ({
             </Grid>
             <Grid item xs={12} sx={{ margin: '0px 50px 0 50px' }}>
                 <Movies
+                    onMovieClick={onMovieClick}
                     onDeleteMovie={onDeleteMovie}
                     onUpdateMovie={onUpdateMovie}
                     movies={movies}
