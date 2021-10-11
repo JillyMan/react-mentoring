@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import React from 'react';
 import SearchBox from './search';
-import AddIcon from '@mui/icons-material/Add';
-import Button from '@mui/material/Button';
-import BackgroundImage from '../../../../assets/imges/header-bg.png';
-import Paper from '@mui/material/Paper';
-import { MainLogo } from '../shared/main-logo';
+import { Box, Grid, Paper } from '@mui/material';
+import { MovieConfig } from 'shared/types/movies';
+import { MainLogo } from 'modules/shared/components/main-logo';
+import { AddMovieButtonContainer } from 'modules/configuration-movie/containers/configration-movie-add-container';
+import BackgroundImage from 'assets/imges/header-bg.png';
 
 interface Props {
-    onAddMovieClick: () => void;
+    onAddMovieClick: (movie: MovieConfig) => void;
     onSearchClick: (search: string) => void;
 }
 
@@ -26,16 +24,6 @@ const styles = {
         fontSize: '40px',
         lineHeight: '49px',
     },
-    searchButton: {
-        width: 150,
-        height: 46,
-        marginTop: '22px',
-        color: '#F65261',
-        borderColor: '#F65261',
-        ':hover': {
-            borderColor: '#F65261',
-        },
-    },
 };
 
 export const Header = ({ onAddMovieClick, onSearchClick }: Props) => {
@@ -48,15 +36,7 @@ export const Header = ({ onAddMovieClick, onSearchClick }: Props) => {
                         <MainLogo />
                     </Grid>
                     <Grid item xs={2}>
-                        <Button
-                            variant='outlined'
-                            startIcon={<AddIcon />}
-                            sx={styles.searchButton}
-                            onClick={() => onAddMovieClick()}
-                        >
-                            {' '}
-                            Add Movie
-                        </Button>
+                        <AddMovieButtonContainer onSubmitClick={onAddMovieClick} />
                     </Grid>
                     <Grid item xs={1} />
                     <Grid item xs={12} sx={{ marginLeft: '150px' }}>

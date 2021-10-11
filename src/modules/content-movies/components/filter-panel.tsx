@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import { Grid, Select, SelectChangeEvent, Tab, Tabs } from '@mui/material';
+import {
+    FormControl,
+    InputLabel,
+    Grid,
+    Select,
+    SelectChangeEvent,
+    Tab,
+    Tabs,
+    MenuItem,
+} from '@mui/material';
 
 interface FilterPanelProps {
     selectedOption: string;

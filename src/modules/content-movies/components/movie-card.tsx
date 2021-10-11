@@ -1,18 +1,34 @@
-import React, { useState, ComponentType, useEffect } from 'react';
-import CardContent from '@mui/material/CardContent';
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
-import { MovieInfo } from '../../../../shared/types/movies';
-import { Grid, Rating, Typography } from '@mui/material';
-import DefaultImage from '../../../../assets/imges/no-image.png';
-import { Box } from '@mui/system';
+import React, { ComponentType, useEffect, useState } from 'react';
+import {
+    Box,
+    Grid,
+    CardMedia,
+    CardContent,
+    Card,
+    Rating,
+    Typography,
+    SpeedDial,
+    SpeedDialAction,
+    SpeedDialIcon,
+    SpeedDialProps,
+} from '@mui/material';
+import DefaultImage from 'assets/imges/no-image.png';
+import { MovieConfig } from 'shared/types/movies';
+import { ConfigurationMovieSpeedDial } from 'modules/configuration-movie/components/configuration-movie-edit-delete-speed-dial';
 
 interface Props {
-    movie: MovieInfo;
+    movie: MovieConfig;
+
+    onDeleteMovie: (id: number) => void;
+    onUpdateMovie: (movei: MovieConfig) => void;
 }
 
-export const MovieCard = ({ movie }: Props) => {
+const formatArrayValues = (values: string[]) =>
+    values.length == 2 ? values.join(' & ') : values.join(', ');
+
+export const MovieCard = ({ movie, onDeleteMovie, onUpdateMovie }: Props) => {
     const [imgUrl, setImgUrl] = useState(movie.poster_path);
+    const [hidden, setHidden] = useState(true);
 
     useEffect(() => {
         setImgUrl(movie.poster_path);
@@ -20,13 +36,19 @@ export const MovieCard = ({ movie }: Props) => {
 
     return (
         <Box sx={{ borderRadius: 16, boxShadow: 3 }}>
-            <Card>
+            <Card onMouseOver={() => setHidden(false)} onMouseOut={() => setHidden(true)}>
                 <CardMedia
                     component='img'
                     height='600px'
                     image={imgUrl}
                     alt='not found'
                     onError={() => setImgUrl(DefaultImage)}
+                />
+                <ConfigurationMovieSpeedDial
+                    onDeleteMovie={onDeleteMovie}
+                    onUpdateMovie={onUpdateMovie}
+                    hidden={hidden}
+                    movie={movie}
                 />
                 <CardContent>
                     <Grid container>
@@ -43,9 +65,7 @@ export const MovieCard = ({ movie }: Props) => {
                         </Grid>
                         <Grid item xs={12}>
                             <Typography variant='body2' color='text.secondary'>
-                                {movie.genres.length == 2
-                                    ? movie.genres.join(' & ')
-                                    : movie.genres.join(', ')}
+                                {formatArrayValues(movie.genres)}
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
@@ -64,7 +84,7 @@ const WithError = (Component: ComponentType<Props>) => {
             return <Component {...props} />;
         }
 
-        return <h1>...Invalid movie info... (high order component test)</h1>;
+        return <h1>...Invalid movie config... (high order component test)</h1>;
     };
 };
 

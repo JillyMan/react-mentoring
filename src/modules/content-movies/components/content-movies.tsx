@@ -1,28 +1,30 @@
-import { Box } from '@mui/system';
 import React from 'react';
-import { FilterPanel } from './filter-panel';
 import { Grid } from '@mui/material';
-import { MovieInfo } from '../../../../shared/types/movies';
 import { Movies } from './movies';
+import { FilterPanel } from './filter-panel';
+import { MovieConfig } from 'shared/types/movies';
 
 interface Props {
     selectedOption: string;
     options: string[];
     sortOptions: string[];
+    movies: MovieConfig[];
 
     onOptionChanged: (option: string) => void;
     onSortOptionChanged: (value: string) => void;
-
-    movies: MovieInfo[];
+    onDeleteMovie: (id: number) => void;
+    onUpdateMovie: (movei: MovieConfig) => void;
 }
 
-export const Content = ({
+export const ContentMovies = ({
     selectedOption,
     options,
     sortOptions,
     movies,
     onOptionChanged,
     onSortOptionChanged,
+    onDeleteMovie,
+    onUpdateMovie,
 }: Props) => {
     return (
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -43,7 +45,11 @@ export const Content = ({
                 </p>
             </Grid>
             <Grid item xs={12} sx={{ margin: '0px 50px 0 50px' }}>
-                <Movies movies={movies} />
+                <Movies
+                    onDeleteMovie={onDeleteMovie}
+                    onUpdateMovie={onUpdateMovie}
+                    movies={movies}
+                />
             </Grid>
         </Grid>
     );
