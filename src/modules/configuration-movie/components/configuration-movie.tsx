@@ -64,10 +64,7 @@ const requiredFildFilled = (
 };
 
 export const ConfigurationMovie = forwardRef(
-    (
-        { configTitle, movieConfig, avaliableGenres, onSubmitClick }: Props,
-        ref: ForwardedRef<unknown>,
-    ) => {
+    ({ configTitle, movieConfig, avaliableGenres, onSubmitClick }: Props) => {
         const [config, setConfig] = useState(movieConfig);
 
         const onKeyChangeHandle = (key: string, value: string | string[]) => {
@@ -112,7 +109,6 @@ export const ConfigurationMovie = forwardRef(
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                     <Grid item xs={8}>
                         <Input
-                            ref={ref}
                             label='Title'
                             variant='outlined'
                             style={configurationStyles.input}
