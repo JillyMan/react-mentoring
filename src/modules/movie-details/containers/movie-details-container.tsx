@@ -16,11 +16,11 @@ const useMovie = (movieConfig: MovieConfig) => {
 
     useEffect(() => {
         setStatus({ loading: true, movie: initialMovieConfig });
-    }, [movieConfig]);
 
-    setTimeout(() => {
-        setStatus({ loading: false, movie: movieConfig });
-    }, 3000);
+        setTimeout(() => {
+            setStatus({ loading: false, movie: movieConfig });
+        }, 3000);
+    }, [movieConfig]);
 
     return {
         isLoading: status.loading,
