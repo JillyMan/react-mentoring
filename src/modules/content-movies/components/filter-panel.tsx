@@ -44,14 +44,14 @@ export const FilterPanel = ({
 
     return (
         <Grid container>
-            <Grid item xs={10}>
+            <Grid item xs={11}>
                 <Tabs value={newSelectedOptionValue} onChange={onHandleOptionChange}>
                     {options.map((value, id) => (
                         <Tab label={value} value={value} key={id} />
                     ))}
                 </Tabs>
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={1}>
                 <FormControl sx={{ minWidth: 128 }}>
                     <InputLabel>Sort by</InputLabel>
                     <Select

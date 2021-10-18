@@ -11,6 +11,7 @@ import {
 import { ContentMoviesContainer } from './modules/content-movies/containers/content-container';
 import { MovieConfig } from './shared/types/movies';
 import { MovieDetails } from 'modules/movie-details/components/movie-details';
+import { MovieDetailsContainer } from 'modules/movie-details/containers/movie-details-container';
 
 const clamp = (num: number, min: number, max: number) =>
     Math.min(Math.max(num, min), max);
@@ -55,7 +56,7 @@ function App() {
     return (
         <>
             {selectedMovie ? (
-                <MovieDetails
+                <MovieDetailsContainer
                     movie={selectedMovie}
                     onClose={() => setSelectedMovie(null)}
                 />
