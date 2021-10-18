@@ -30,7 +30,7 @@ export const ContentMovies = ({
 }: Props) => {
     return (
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-            <Grid item xs={12} sx={{ marginTop: '20px' }}>
+            <Grid item xs={12} sx={{ marginTop: '20px', marginLeft: '20px' }}>
                 <FilterPanel
                     selectedOption={selectedOption}
                     options={options}
@@ -39,8 +39,8 @@ export const ContentMovies = ({
                     onOptionChanged={(s) => onOptionChanged(s)}
                     onSortOptionChanged={(s) => onSortOptionChanged(s)}
                 />
-                <hr />
             </Grid>
+            <hr style={{ width: '100%' }} />
             <Grid item sx={{ margin: '0 0 0 50px' }}>
                 <p>
                     <b>{movies ? movies.length : 0}</b> movies found
