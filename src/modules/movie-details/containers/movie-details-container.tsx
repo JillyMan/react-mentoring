@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { LinearProgress, Box } from '@mui/material';
-import { MovieConfig } from 'shared/types/movies';
+import { MovieConfig, initialMovieConfig } from 'shared/types/movies';
 import { MovieDetails } from '../components/movie-details';
 
 interface Props {
@@ -11,16 +11,16 @@ interface Props {
 const useMovie = (movieConfig: MovieConfig) => {
     const [status, setStatus] = useState({
         loading: true,
-        movie: movieConfig,
+        movie: initialMovieConfig,
     });
 
     useEffect(() => {
-        setStatus({ loading: true, movie: movieConfig });
+        setStatus({ loading: true, movie: initialMovieConfig });
+    }, [movieConfig]);
 
-        setTimeout(() => {
-            setStatus({ loading: false, movie: movieConfig });
-        }, 3000);
-    }, [movieConfig.id]);
+    setTimeout(() => {
+        setStatus({ loading: false, movie: movieConfig });
+    }, 3000);
 
     return {
         isLoading: status.loading,
