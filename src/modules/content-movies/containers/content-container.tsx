@@ -58,6 +58,8 @@ export const ContentMoviesComponentContainer = ({
         loadMovies({
             offset: 0,
             limit: 4,
+            searchBy: search.searchBy,
+            searchValue: search.searchValue,
             genresFilter: search.genresFilter,
             sortOrder: search.sortOrder,
             sortBy: search.sortBy,

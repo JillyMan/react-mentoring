@@ -8,17 +8,16 @@ import {
     storeMoviesAction,
 } from '../actions/actions';
 
-function* handleLoadMovies(action: LoadMoviesWithQueryAction) {
+function* handleLoadMovies({ payload }: LoadMoviesWithQueryAction) {
     try {
-        const { offset, limit, genresFilter, sortBy, sortOrder } = action.payload;
-        const moviesInfo: PagedList<MovieConfig> = yield call(
-            getMovies,
-            offset,
-            limit,
-            sortBy,
-            sortOrder,
-            genresFilter,
-        );
+        const { offset, limit, genresFilter, sortBy, sortOrder } = payload;
+        const moviesInfo: PagedList<MovieConfig> = yield call(getMovies, offset, limit, {
+            sortBy: payload.sortBy,
+            sortOrder: payload.sortOrder,
+            genresFilter: payload.genresFilter,
+            searchBy: payload.searchBy,
+            searchValue: payload.searchValue,
+        });
 
         yield put(
             storeMoviesAction({

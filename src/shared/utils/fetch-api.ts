@@ -30,7 +30,7 @@ export class FetchApi implements Api {
         };
         const contentTypeHeader = headersForSending['Content-Type'];
 
-        return fetch(`${this.serviceName}${url}`, {
+        return fetch(`${this.serviceName}/${url}`, {
             method: options.method,
             headers: headersForSending,
             body: contentTypeDataTransformers[contentTypeHeader](options.body),
