@@ -22,7 +22,8 @@ export const getMovies = async (
 
 export const getMovie = async (id: number) => await api.get(``, { id });
 
-export const addMovie = async (movie: MovieConfig) => await api.post('', movie);
+export const addMovie = async (movie: MovieConfig) =>
+    await api.post('', { ...movie, id: undefined });
 
 export const updateMovie = async (movie: MovieConfig) => await api.put('', movie);
 

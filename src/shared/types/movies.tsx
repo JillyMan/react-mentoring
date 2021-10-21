@@ -16,9 +16,9 @@ export interface MovieConfig {
 export const initialMovieConfig: MovieConfig = {
     id: 0,
     title: '',
-    tagline: '',
+    tagline: 'tagline',
     vote_average: 0,
-    vote_count: 0,
+    vote_count: 1000,
     release_date: '',
     poster_path: '',
     overview: '',

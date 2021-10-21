@@ -29,11 +29,12 @@ export class FetchApi implements Api {
             'Content-Type': 'application/json',
         };
         const contentTypeHeader = headersForSending['Content-Type'];
+        const data = contentTypeDataTransformers[contentTypeHeader](options.body);
 
         return fetch(`${this.serviceName}/${url}`, {
             method: options.method,
             headers: headersForSending,
-            body: contentTypeDataTransformers[contentTypeHeader](options.body),
+            body: data,
         })
             .then((responce) => responce.json().then((data: R) => ({ responce, data })))
             .then(({ responce, data }) => {

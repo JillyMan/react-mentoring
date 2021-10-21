@@ -7,6 +7,7 @@ import { MovieConfig } from 'shared/types/movies';
 import { configurationGenres } from 'shared/types/genres';
 import { ConfigurationMovie } from './configuration-movie';
 import { ConfigurationSpeedDial } from './configuration-movie-speed-dial';
+import { ConfigurationMovieWithValidation } from './configuration-movie-with-validation';
 
 interface Props {
     hidden: boolean;
@@ -64,11 +65,15 @@ export const ConfigurationMovieSpeedDial = ({
             />
 
             <Modal open={showEdit} onClose={() => setShowEdit(false)}>
-                <ConfigurationMovie
+                <ConfigurationMovieWithValidation
                     configTitle='EDIT'
                     avaliableGenres={configurationGenres}
                     movieConfig={movie}
                     onSubmitClick={onHandleUpdateMovie}
+
+                    // onKeyValueChange={handleKeyValueChange}
+                    // onResetClick={() => cleanMovieConfig()}
+                    // onSubmitClick={onSubmitHandle}
                 />
             </Modal>
         </Box>

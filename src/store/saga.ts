@@ -1,10 +1,10 @@
 import { all } from 'redux-saga/effects';
 import createSagaMiddleware from 'redux-saga';
 import { moviesSagas } from 'modules/content-movies/sagas';
-import { headerSagas } from 'modules/header/sagas';
+import { configurationMovieSagas } from 'modules/configuration-movie/sagas';
 
 function* rootSaga() {
-    yield all([...moviesSagas, ...headerSagas].map((saga) => saga()));
+    yield all([...moviesSagas, ...configurationMovieSagas].map((saga) => saga()));
 }
 
 export const sagaMiddleware = createSagaMiddleware();
