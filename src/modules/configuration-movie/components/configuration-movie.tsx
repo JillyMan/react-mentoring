@@ -1,4 +1,4 @@
-import React, { ForwardedRef, forwardRef, useState } from 'react';
+import React, { forwardRef, useState, useMemo } from 'react';
 import DatePicker from '@mui/lab/DatePicker';
 import SendIcon from '@mui/icons-material/Send';
 import {
@@ -19,6 +19,7 @@ import { ConfigurationMovieBox } from './configuration-movie-box';
 import { SubmitButton } from 'modules/shared/components/submit-button';
 import { Input } from 'modules/shared/components/input';
 import { ResetButton } from 'modules/shared/components/reset-button';
+import { uniq } from 'shared/utils/';
 
 interface Props {
     configTitle: 'ADD' | 'EDIT';
@@ -66,6 +67,10 @@ const requiredFildFilled = (
 export const ConfigurationMovie = forwardRef(
     ({ configTitle, movieConfig, avaliableGenres, onSubmitClick }: Props) => {
         const [config, setConfig] = useState(movieConfig);
+        const allGenres = useMemo(
+            () => uniq([...avaliableGenres, ...movieConfig.genres]),
+            [movieConfig.genres],
+        );
 
         const onKeyChangeHandle = (key: string, value: string | string[]) => {
             setConfig({ ...config, [key]: value });
@@ -175,7 +180,7 @@ export const ConfigurationMovie = forwardRef(
                                 renderValue={(selected) => selected.join(', ')}
                                 MenuProps={MenuProps}
                             >
-                                {avaliableGenres.map((genre, id) => (
+                                {allGenres.map((genre, id) => (
                                     <MenuItem key={id} value={genre}>
                                         <Checkbox
                                             checked={config.genres.indexOf(genre) > -1}
