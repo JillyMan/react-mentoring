@@ -16,17 +16,10 @@ import { CardMediaWithDefaultImg } from 'modules/shared/components/card-media-wi
 
 interface Props {
     movie: MovieConfig;
-    onDeleteMovie: (id: number) => void;
     onMovieClick: (movie: MovieConfig) => void;
-    onUpdateMovie: (movie: MovieConfig) => void;
 }
 
-export const MovieCard = ({
-    movie,
-    onMovieClick,
-    onDeleteMovie,
-    onUpdateMovie,
-}: Props) => {
+export const MovieCard = ({ movie, onMovieClick }: Props) => {
     const [imgUrl, setImgUrl] = useState(movie.poster_path);
     const [hidden, setHidden] = useState(true);
 
@@ -40,12 +33,7 @@ export const MovieCard = ({
                 <CardActionArea onClick={() => onMovieClick(movie)}>
                     <CardMediaWithDefaultImg url={movie.poster_path} />
                 </CardActionArea>
-                <ConfigurationMovieSpeedDial
-                    onDeleteMovie={onDeleteMovie}
-                    onUpdateMovie={onUpdateMovie}
-                    hidden={hidden}
-                    movie={movie}
-                />
+                <ConfigurationMovieSpeedDial hidden={hidden} movie={movie} />
                 <CardActionArea onClick={() => onMovieClick(movie)}>
                     <CardContent>
                         <Grid container>

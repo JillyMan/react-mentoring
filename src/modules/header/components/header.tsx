@@ -3,7 +3,7 @@ import SearchBox from './search';
 import { Box, Grid, Paper } from '@mui/material';
 import { MovieConfig } from 'shared/types/movies';
 import { MainLogo } from 'modules/shared/components/main-logo';
-import { AddMovieButtonContainer } from 'modules/configuration-movie/containers/configration-movie-add-container';
+import { ConfigrationMovieAddButtonContainer } from 'modules/configuration-movie/containers/configuration-movie-add-container';
 import BackgroundImage from 'assets/imges/header-bg.png';
 
 interface Props {
@@ -35,7 +35,7 @@ export const Header = ({ onSearchClick }: Props) => {
                         <MainLogo />
                     </Grid>
                     <Grid item xs={2}>
-                        <AddMovieButtonContainer />
+                        <ConfigrationMovieAddButtonContainer />
                     </Grid>
                     <Grid item xs={1} />
                     <Grid item xs={12} sx={{ marginLeft: '150px' }}>

@@ -8,33 +8,17 @@ import { configurationGenres } from 'shared/types/genres';
 import { ConfigurationMovie } from './configuration-movie';
 import { ConfigurationSpeedDial } from './configuration-movie-speed-dial';
 import { ConfigurationMovieWithValidation } from './configuration-movie-with-validation';
+import { ConfigurationMovieDeleteDialogContainer } from '../containers/configuration-movie-delete-dialog-container';
+import { ConfigurationMovieUpdateContainer } from '../containers/configuration-movie-edit-container';
 
 interface Props {
     hidden: boolean;
     movie: MovieConfig;
-
-    onDeleteMovie: (id: number) => void;
-    onUpdateMovie: (movei: MovieConfig) => void;
 }
 
-export const ConfigurationMovieSpeedDial = ({
-    hidden,
-    movie,
-    onDeleteMovie,
-    onUpdateMovie,
-}: Props) => {
+export const ConfigurationMovieSpeedDial = ({ hidden, movie }: Props) => {
     const [showEdit, setShowEdit] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
-
-    const onHandleUpdateMovie = (newConfig: MovieConfig) => {
-        setShowEdit(false);
-        onUpdateMovie(newConfig);
-    };
-
-    const onHandleDeleteMovie = () => {
-        setShowDelete(false);
-        onDeleteMovie(movie.id);
-    };
 
     return (
         <Box sx={{ position: 'relative' }}>
@@ -58,14 +42,16 @@ export const ConfigurationMovieSpeedDial = ({
                 />
             </ConfigurationSpeedDial>
 
-            <ConfigurationMovieDeleteDialog
+            <ConfigurationMovieDeleteDialogContainer
+                id={movie.id}
                 show={showDelete}
-                onClose={() => setShowDelete(false)}
-                onSubmitClick={onHandleDeleteMovie}
+                onCloseDialog={() => setShowDelete(false)}
             />
 
             <Modal open={showEdit} onClose={() => setShowEdit(false)}>
-                <ConfigurationMovieWithValidation
+                <ConfigurationMovieUpdateContainer id={movie.id} />
+
+                {/* <ConfigurationMovieWithValidation
                     configTitle='EDIT'
                     avaliableGenres={configurationGenres}
                     movieConfig={movie}
@@ -74,7 +60,7 @@ export const ConfigurationMovieSpeedDial = ({
                     // onKeyValueChange={handleKeyValueChange}
                     // onResetClick={() => cleanMovieConfig()}
                     // onSubmitClick={onSubmitHandle}
-                />
+                /> */}
             </Modal>
         </Box>
     );

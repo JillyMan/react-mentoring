@@ -57,7 +57,7 @@ export const ContentMoviesComponentContainer = ({
     useEffect(() => {
         loadMovies({
             offset: 0,
-            limit: 4,
+            limit: 8,
             searchBy: search.searchBy,
             searchValue: search.searchValue,
             genresFilter: search.genresFilter,
@@ -86,6 +86,10 @@ export const ContentMoviesComponentContainer = ({
         });
     };
 
+    const handleMovieClick = (movie: MovieConfig) => {
+        console.log('open movie: ', movie.title);
+    };
+
     return (
         <ContentMovies
             options={allGenres}
@@ -96,9 +100,7 @@ export const ContentMoviesComponentContainer = ({
             movies={movies || []}
             onSortOptionChanged={handleSortChange}
             onOptionChanged={handleGenreChange}
-            onMovieClick={() => {}}
-            onDeleteMovie={() => {}}
-            onUpdateMovie={() => {}}
+            onMovieClick={handleMovieClick}
         />
     );
 };

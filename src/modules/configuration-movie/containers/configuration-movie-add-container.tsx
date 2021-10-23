@@ -88,7 +88,7 @@ const mapDispatchToProps = {
     cleanMovieConfig: cleanMovieConfigAction,
 };
 
-export const AddMovieButtonContainer = connect(
+export const ConfigrationMovieAddButtonContainer = connect(
     mapStateToProps,
     mapDispatchToProps,
 )(AddMovieButtonComponentContainer);
