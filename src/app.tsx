@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Box } from '@mui/material';
 import { Header } from './modules/header/components/header';
 import { MainLogo } from './modules/shared/components/main-logo';
