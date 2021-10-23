@@ -9,22 +9,21 @@ interface Props {
 }
 
 const useMovie = (movieConfig: MovieConfig) => {
-    const [status, setStatus] = useState({
-        loading: true,
-        movie: initialMovieConfig,
-    });
+    const [loading, setLoading] = useState(true);
+    const [movie, setMovie] = useState(initialMovieConfig);
 
     useEffect(() => {
-        setStatus({ loading: true, movie: initialMovieConfig });
+        setLoading(true);
 
         setTimeout(() => {
-            setStatus({ loading: false, movie: movieConfig });
+            setLoading(true);
+            setMovie(movieConfig);
         }, 3000);
     }, [movieConfig]);
 
     return {
-        isLoading: status.loading,
-        movie: status.movie,
+        isLoading: loading,
+        movie: movie,
     };
 };
 
