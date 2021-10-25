@@ -8,7 +8,6 @@ export const CLEAN_MOVIE_CONFIG = 'CLEAN_MOVIE_CONFIG';
 export const LOAD_MOVIE_CONFIG = 'LOAD_MOVIE_CONFIG';
 export const SAVE_NEW_MOVIE_CONFIG = 'SAVE_NEW_MOVIE_CONFIG';
 export const UPDATE_MOVIE_CONFIG = 'UPDATE_MOVIE_CONFIG';
-export const DELETE_MOVIE_CONFIG = 'DELETE_MOVIE';
 
 interface BasePayload {
     config: MovieConfig;
@@ -18,10 +17,6 @@ export interface EditMovieConfigPayload extends BasePayload {}
 export interface CleanMovieConfigPayload {}
 export interface SaveNewMovieConfigPayload extends BasePayload {}
 export interface UpdateMovieConfigPayload extends BasePayload {}
-
-export interface DeleteMovieConfigPayload {
-    id: number;
-}
 
 export interface LoadMovieConfigPayload {
     id: number;
@@ -45,11 +40,6 @@ export type SaveNewMovieConfigAction = Action<
 export type UpdateMovieConfigAction = Action<
     typeof UPDATE_MOVIE_CONFIG,
     UpdateMovieConfigPayload
->;
-
-export type DeleteMovieConfigActon = Action<
-    typeof DELETE_MOVIE_CONFIG,
-    DeleteMovieConfigPayload
 >;
 
 export type LoadMovieConfigActon = Action<
@@ -77,12 +67,7 @@ export const updateMovieConfigAction = createAction<
     UpdateMovieConfigPayload
 >(UPDATE_MOVIE_CONFIG);
 
-export const deleteMovieConfigAction = createAction<
-    DeleteMovieConfigActon,
-    DeleteMovieConfigPayload
->(DELETE_MOVIE_CONFIG);
-
 export const loadMovieConfigAction = createAction<
-    DeleteMovieConfigActon,
-    DeleteMovieConfigPayload
+    LoadMovieConfigActon,
+    LoadMovieConfigPayload
 >(LOAD_MOVIE_CONFIG);

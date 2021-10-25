@@ -10,8 +10,8 @@ import {
     Typography,
 } from '@mui/material';
 import { MovieConfig } from 'shared/types/movies';
-import { ConfigurationMovieSpeedDial } from 'modules/configuration-movie/components/configuration-movie-edit-delete-speed-dial';
 import { formatGenres } from 'modules/shared/format-genres';
+import { ConfigurationMovieSpeedDial } from './movie-edit-delete-speed-dial';
 import { CardMediaWithDefaultImg } from 'modules/shared/components/card-media-with-default-img';
 
 interface Props {

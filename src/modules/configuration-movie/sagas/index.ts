@@ -1,13 +1,11 @@
 import {
-    deleteMovieSaga,
-    loadMovieSaga,
-    saveNewMovieSaga,
-    updateMovieSaga,
+    loadMovieConfigSaga,
+    saveNewMovieConfigSaga,
+    updateMovieConfigSaga,
 } from './configuration-movie-saga';
 
 export const configurationMovieSagas = [
-    saveNewMovieSaga,
-    updateMovieSaga,
-    deleteMovieSaga,
-    loadMovieSaga,
+    saveNewMovieConfigSaga,
+    updateMovieConfigSaga,
+    loadMovieConfigSaga,
 ];

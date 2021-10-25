@@ -2,24 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { LinearProgress, Box } from '@mui/material';
 import { MovieConfig, initialMovieConfig } from 'shared/types/movies';
 import { MovieDetails } from '../components/movie-details';
+import { getMovie } from 'shared/services/movies-services';
 
 interface Props {
-    movie: MovieConfig;
+    movieId: number;
     onClose: () => void;
 }
 
-const useMovie = (movieConfig: MovieConfig) => {
+const useMovie = (movieId: number) => {
     const [loading, setLoading] = useState(true);
     const [movie, setMovie] = useState(initialMovieConfig);
 
     useEffect(() => {
         setLoading(true);
 
-        setTimeout(() => {
-            setLoading(true);
-            setMovie(movieConfig);
-        }, 3000);
-    }, [movieConfig]);
+        getMovie(movieId).then((result) => {
+            setMovie(result);
+            setLoading(false);
+        });
+    }, [movieId]);
 
     return {
         isLoading: loading,
@@ -27,8 +28,8 @@ const useMovie = (movieConfig: MovieConfig) => {
     };
 };
 
-export const MovieDetailsContainer = ({ movie, onClose }: Props) => {
-    const status = useMovie(movie);
+export const MovieDetailsContainer = ({ movieId, onClose }: Props) => {
+    const status = useMovie(movieId);
 
     return status.isLoading ? (
         <Box sx={{ width: '100%' }}>

@@ -22,6 +22,8 @@ const initialState: MoviesState = {
     movies: [],
     totalAmount: 0,
     searchSettings: {
+        offset: 0,
+        limit: 8,
         sortBy: movieConfigNames.release_date,
         sortOrder: 'desc',
         searchValue: '',

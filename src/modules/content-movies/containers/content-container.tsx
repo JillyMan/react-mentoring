@@ -55,15 +55,7 @@ export const ContentMoviesComponentContainer = ({
     setSearchFilter,
 }: Props) => {
     useEffect(() => {
-        loadMovies({
-            offset: 0,
-            limit: 8,
-            searchBy: search.searchBy,
-            searchValue: search.searchValue,
-            genresFilter: search.genresFilter,
-            sortOrder: search.sortOrder,
-            sortBy: search.sortBy,
-        });
+        loadMovies({ ...search });
 
         return () => {
             clearMovies();

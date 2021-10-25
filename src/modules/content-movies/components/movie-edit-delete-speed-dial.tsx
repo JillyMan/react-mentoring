@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Box, SpeedDialAction, SpeedDialIcon, Modal } from '@mui/material';
-import { ConfigurationMovieDeleteDialog } from './configuration-movie-delete-dialoge';
+import { ConfigurationMovieDeleteDialog } from './movie-delete-dialoge';
 import { MovieConfig } from 'shared/types/movies';
 import { configurationGenres } from 'shared/types/genres';
-import { ConfigurationMovie } from './configuration-movie';
-import { ConfigurationSpeedDial } from './configuration-movie-speed-dial';
-import { ConfigurationMovieWithValidation } from './configuration-movie-with-validation';
-import { ConfigurationMovieDeleteDialogContainer } from '../containers/configuration-movie-delete-dialog-container';
-import { ConfigurationMovieUpdateContainer } from '../containers/configuration-movie-edit-container';
+import { ConfigurationMovie } from '../../configuration-movie/components/configuration-movie';
+import { ConfigurationSpeedDial } from '../../configuration-movie/components/configuration-movie-speed-dial';
+import { ConfigurationMovieWithValidation } from '../../configuration-movie/components/configuration-movie-with-validation';
+import { MovieDeleteDialogContainer } from '../containers/movie-delete-dialog-container';
+import { ConfigurationMovieUpdateContainer } from '../../configuration-movie/containers/configuration-movie-edit-container';
 
 interface Props {
     hidden: boolean;
@@ -42,7 +42,7 @@ export const ConfigurationMovieSpeedDial = ({ hidden, movie }: Props) => {
                 />
             </ConfigurationSpeedDial>
 
-            <ConfigurationMovieDeleteDialogContainer
+            <MovieDeleteDialogContainer
                 id={movie.id}
                 show={showDelete}
                 onCloseDialog={() => setShowDelete(false)}

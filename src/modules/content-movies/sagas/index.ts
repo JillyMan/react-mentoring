@@ -1,3 +1,3 @@
-import { loadMoviesSaga } from './movies-saga';
+import { loadMoviesSaga, deleteMovieSaga } from './movies-saga';
 
-export const moviesSagas = [loadMoviesSaga];
+export const moviesSagas = [loadMoviesSaga, deleteMovieSaga];

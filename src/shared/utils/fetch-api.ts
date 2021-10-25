@@ -1,4 +1,5 @@
 import qs from 'qs';
+import { resolveProjectReferencePath } from 'typescript';
 import { Api, RequestBody } from './types/api';
 
 interface FetchOptions<T> {
@@ -13,6 +14,8 @@ const contentTypes = {
 const contentTypeDataTransformers = {
     [contentTypes.json]: <T>(data: T) => JSON.stringify(data),
 };
+
+const isError = <T>(response: Response) => !response.ok;
 
 export class FetchApi implements Api {
     private readonly serviceName: string;
@@ -36,10 +39,15 @@ export class FetchApi implements Api {
             headers: headersForSending,
             body: data,
         })
-            .then((responce) => responce.json().then((data: R) => ({ responce, data })))
-            .then(({ responce, data }) => {
-                if (data == null) {
-                    console.error(responce);
+            .then((response) =>
+                response.json().then(
+                    (data: R) => ({ response, data }),
+                    () => ({ response, data: {} as R }),
+                ),
+            )
+            .then(({ response, data }) => {
+                if (!response.ok) {
+                    throw response;
                 }
                 return data;
             });

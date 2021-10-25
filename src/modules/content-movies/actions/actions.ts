@@ -8,6 +8,7 @@ export const STORE_MOVIES = 'STORE_MOVIES';
 
 export const SET_SORT_MOVIES = 'SORT_MOVIES';
 export const SET_SEARCH_MOVIES_FILTER = 'SET_SEARCH_MOVIES_FILTER';
+export const DELETE_MOVIE_CONFIG = 'DELETE_MOVIE';
 
 export interface LoadMoviesQueryPayload {
     offset: number;
@@ -18,6 +19,14 @@ export interface LoadMoviesQueryPayload {
     searchBy?: 'title' | 'genres';
     genresFilter?: string[];
 }
+export interface DeleteMovieConfigPayload {
+    id: number;
+}
+
+export type DeleteMovieConfigActon = Action<
+    typeof DELETE_MOVIE_CONFIG,
+    DeleteMovieConfigPayload
+>;
 
 export interface ClearMoviesPayload {}
 
@@ -71,3 +80,8 @@ export const setFilterMoviesAction = createAction<
 export const storeMoviesAction = createAction<StoreMoviesAction, StoreMoviesPayload>(
     STORE_MOVIES,
 );
+
+export const deleteMovieConfigAction = createAction<
+    DeleteMovieConfigActon,
+    DeleteMovieConfigPayload
+>(DELETE_MOVIE_CONFIG);

@@ -5,7 +5,7 @@ import {
     DeleteMovieConfigActon,
     DeleteMovieConfigPayload,
 } from '../actions/actions';
-import { ConfigurationMovieDeleteDialog } from '../components/configuration-movie-delete-dialoge';
+import { ConfigurationMovieDeleteDialog } from '../components/movie-delete-dialoge';
 
 interface StateProps {}
 
@@ -21,7 +21,7 @@ interface OwnProps {
 
 type Props = StateProps & DispatchProps & OwnProps;
 
-const ConfigurationMovieDeleteComponentContainer = ({
+const MovieDeleteComponentContainer = ({
     id,
     show,
     onCloseDialog,
@@ -45,11 +45,7 @@ const mapDispatchToProps = {
     deleteMovieConfig: deleteMovieConfigAction,
 };
 
-export const ConfigurationMovieDeleteDialogContainer = connect<
-    StateProps,
-    DispatchProps,
-    OwnProps
->(
+export const MovieDeleteDialogContainer = connect<StateProps, DispatchProps, OwnProps>(
     undefined,
     mapDispatchToProps,
-)(ConfigurationMovieDeleteComponentContainer);
+)(MovieDeleteComponentContainer);

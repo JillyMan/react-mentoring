@@ -1,14 +1,7 @@
 import { call, takeEvery, put } from '@redux-saga/core/effects';
-import {
-    addMovie,
-    deleteMovie,
-    getMovie,
-    updateMovie,
-} from 'shared/services/movies-services';
+import { addMovie, getMovie, updateMovie } from 'shared/services/movies-services';
 import { MovieConfig } from 'shared/types/movies';
 import {
-    DeleteMovieConfigActon,
-    DELETE_MOVIE_CONFIG,
     LoadMovieConfigActon,
     LOAD_MOVIE_CONFIG,
     SaveNewMovieConfigAction,
@@ -34,14 +27,6 @@ function* handleUpdateMovieConfig({ payload }: UpdateMovieConfigAction) {
     }
 }
 
-function* handleDeleteMovieConfig({ payload }: DeleteMovieConfigActon) {
-    try {
-        yield call(deleteMovie, payload.id);
-    } catch (e) {
-        console.log(e);
-    }
-}
-
 function* handleLoadMovieConfig({ payload }: LoadMovieConfigActon) {
     try {
         const movieConfig: MovieConfig = yield call(getMovie, payload.id);
@@ -51,18 +36,14 @@ function* handleLoadMovieConfig({ payload }: LoadMovieConfigActon) {
     }
 }
 
-export function* saveNewMovieSaga() {
+export function* saveNewMovieConfigSaga() {
     yield takeEvery(SAVE_NEW_MOVIE_CONFIG, handleSaveNewMovieConfig);
 }
 
-export function* updateMovieSaga() {
+export function* updateMovieConfigSaga() {
     yield takeEvery(UPDATE_MOVIE_CONFIG, handleUpdateMovieConfig);
 }
 
-export function* deleteMovieSaga() {
-    yield takeEvery(DELETE_MOVIE_CONFIG, handleDeleteMovieConfig);
-}
-
-export function* loadMovieSaga() {
+export function* loadMovieConfigSaga() {
     yield takeEvery(LOAD_MOVIE_CONFIG, handleLoadMovieConfig);
 }
