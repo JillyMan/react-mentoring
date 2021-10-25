@@ -20,12 +20,7 @@ interface Props {
 }
 
 export const MovieCard = ({ movie, onMovieClick }: Props) => {
-    const [imgUrl, setImgUrl] = useState(movie.poster_path);
     const [hidden, setHidden] = useState(true);
-
-    useEffect(() => {
-        setImgUrl(movie.poster_path);
-    }, [movie]);
 
     return (
         <Box sx={{ borderRadius: 16, boxShadow: 3 }}>
@@ -33,7 +28,7 @@ export const MovieCard = ({ movie, onMovieClick }: Props) => {
                 <CardActionArea onClick={() => onMovieClick(movie)}>
                     <CardMediaWithDefaultImg url={movie.poster_path} />
                 </CardActionArea>
-                <ConfigurationMovieSpeedDial hidden={hidden} movie={movie} />
+                <ConfigurationMovieSpeedDial hidden={hidden} movieId={movie.id} />
                 <CardActionArea onClick={() => onMovieClick(movie)}>
                     <CardContent>
                         <Grid container>

@@ -41,13 +41,17 @@ type DispatchProps = typeof mapDispatchToProps;
 
 interface OwnProps {
     id: number;
+    show: boolean;
+    onCloseModal: () => void;
 }
 
 type Props = StateProps & DispatchProps & OwnProps;
 
 const ConfigurationMovieUpdateComponentContainer = ({
     id,
+    show,
     draftConfig,
+    onCloseModal,
     loadMovieConfig,
     editDraftConfig,
     cleanMovieConfig,
@@ -59,6 +63,7 @@ const ConfigurationMovieUpdateComponentContainer = ({
 
     const onSubmitHandle = () => {
         updateMovieConfig({ config: draftConfig });
+        onCloseModal();
     };
 
     const handleKeyValueChange = (key: string, value: InputValues) => {
@@ -71,14 +76,16 @@ const ConfigurationMovieUpdateComponentContainer = ({
     };
 
     return (
-        <ConfigurationMovieWithValidation
-            configTitle='EDIT'
-            avaliableGenres={configurationGenres}
-            movieConfig={draftConfig}
-            onKeyValueChange={handleKeyValueChange}
-            onResetClick={cleanMovieConfig}
-            onSubmitClick={onSubmitHandle}
-        />
+        <Modal open={show} onClose={onCloseModal}>
+            <ConfigurationMovieWithValidation
+                configTitle='EDIT'
+                avaliableGenres={configurationGenres}
+                movieConfig={draftConfig}
+                onKeyValueChange={handleKeyValueChange}
+                onResetClick={cleanMovieConfig}
+                onSubmitClick={onSubmitHandle}
+            />
+        </Modal>
     );
 };
 

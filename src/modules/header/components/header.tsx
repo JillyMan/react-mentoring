@@ -3,7 +3,7 @@ import SearchBox from './search';
 import { Box, Grid, Paper } from '@mui/material';
 import { MovieConfig } from 'shared/types/movies';
 import { MainLogo } from 'modules/shared/components/main-logo';
-import { ConfigrationMovieAddButtonContainer } from 'modules/configuration-movie/containers/configuration-movie-add-container';
+import { ConfigrationMovieAddButtonContainer } from 'modules/configuration-movie/containers/configuration-movie-add-button-container';
 import BackgroundImage from 'assets/imges/header-bg.png';
 
 interface Props {

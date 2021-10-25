@@ -25,6 +25,7 @@ export const getMovie = async (id: number) => await api.get<MovieConfig>(`${id}`
 export const addMovie = async (movie: MovieConfig) =>
     await api.post('', { ...movie, id: undefined });
 
-export const updateMovie = async (movie: MovieConfig) => await api.put('', movie);
+export const updateMovie = async (movie: MovieConfig) =>
+    await api.put('', { ...movie, tagline: 'undefined' });
 
 export const deleteMovie = async (id: number) => await api.delete(`${id}`);

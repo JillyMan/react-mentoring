@@ -2,7 +2,6 @@ import { call, put, select, takeEvery } from '@redux-saga/core/effects';
 import { deleteMovie, getMovies } from 'shared/services/movies-services';
 import { MovieConfig } from 'shared/types/movies';
 import { PagedList } from 'shared/types/paged-list';
-import { AppState } from 'shared/types/store';
 import {
     DeleteMovieConfigActon,
     DELETE_MOVIE_CONFIG,
@@ -11,6 +10,7 @@ import {
     LOAD_MOVIES_WITH_QUERY,
     storeMoviesAction,
 } from '../actions/actions';
+import { selectMoviesSearchSettings } from '../selectors/select-movies-search-settings';
 import { MoviesSearchSettings } from '../types/movies-state';
 
 function* handleLoadMovies({ payload }: LoadMoviesWithQueryAction) {
@@ -35,16 +35,15 @@ function* handleLoadMovies({ payload }: LoadMoviesWithQueryAction) {
     }
 }
 
-const selectSearchSettings = (state: AppState): MoviesSearchSettings =>
-    state.movies.searchSettings;
-
 function* handleDeleteMovieConfig({ payload }: DeleteMovieConfigActon) {
     try {
         yield call(deleteMovie, payload.id);
-        const searchSettings: MoviesSearchSettings = yield select(selectSearchSettings);
+        const searchSettings: MoviesSearchSettings = yield select(
+            selectMoviesSearchSettings,
+        );
         yield put(loadMoviesAction({ ...searchSettings }));
     } catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }
 

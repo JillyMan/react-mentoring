@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Box, SpeedDialAction, SpeedDialIcon, Modal } from '@mui/material';
@@ -12,11 +12,11 @@ import { MovieDeleteDialogContainer } from '../containers/movie-delete-dialog-co
 import { ConfigurationMovieUpdateContainer } from '../../configuration-movie/containers/configuration-movie-edit-container';
 
 interface Props {
+    movieId: number;
     hidden: boolean;
-    movie: MovieConfig;
 }
 
-export const ConfigurationMovieSpeedDial = ({ hidden, movie }: Props) => {
+export const ConfigurationMovieSpeedDial = React.memo(({ hidden, movieId }: Props) => {
     const [showEdit, setShowEdit] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
 
@@ -42,26 +42,21 @@ export const ConfigurationMovieSpeedDial = ({ hidden, movie }: Props) => {
                 />
             </ConfigurationSpeedDial>
 
-            <MovieDeleteDialogContainer
-                id={movie.id}
-                show={showDelete}
-                onCloseDialog={() => setShowDelete(false)}
-            />
+            {showDelete && (
+                <MovieDeleteDialogContainer
+                    id={movieId}
+                    show={showDelete}
+                    onCloseDialog={() => setShowDelete(false)}
+                />
+            )}
 
-            <Modal open={showEdit} onClose={() => setShowEdit(false)}>
-                <ConfigurationMovieUpdateContainer id={movie.id} />
-
-                {/* <ConfigurationMovieWithValidation
-                    configTitle='EDIT'
-                    avaliableGenres={configurationGenres}
-                    movieConfig={movie}
-                    onSubmitClick={onHandleUpdateMovie}
-
-                    // onKeyValueChange={handleKeyValueChange}
-                    // onResetClick={() => cleanMovieConfig()}
-                    // onSubmitClick={onSubmitHandle}
-                /> */}
-            </Modal>
+            {showEdit && (
+                <ConfigurationMovieUpdateContainer
+                    id={movieId}
+                    show={showEdit}
+                    onCloseModal={() => setShowEdit(false)}
+                />
+            )}
         </Box>
     );
-};
+});

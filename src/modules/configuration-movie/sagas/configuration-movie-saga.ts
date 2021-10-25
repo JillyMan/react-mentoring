@@ -1,4 +1,9 @@
-import { call, takeEvery, put } from '@redux-saga/core/effects';
+import { call, takeEvery, put, select } from '@redux-saga/core/effects';
+//TODO: will be deleted when React-Routes will be added
+import { loadMoviesAction } from 'modules/content-movies/actions/actions';
+import { selectMoviesSearchSettings } from 'modules/content-movies/selectors/select-movies-search-settings';
+import { MoviesSearchSettings } from 'modules/content-movies/types/movies-state';
+///----
 import { addMovie, getMovie, updateMovie } from 'shared/services/movies-services';
 import { MovieConfig } from 'shared/types/movies';
 import {
@@ -9,19 +14,36 @@ import {
     UpdateMovieConfigAction,
     UPDATE_MOVIE_CONFIG,
     editMovieConfigAction,
+    cleanMovieConfigAction,
 } from '../actions/actions';
 
 function* handleSaveNewMovieConfig({ payload }: SaveNewMovieConfigAction) {
     try {
         yield call(addMovie, payload.config);
+        yield put(cleanMovieConfigAction());
+
+        //TODO: will be deleted when React-Routes will be added
+        const searchSettings: MoviesSearchSettings = yield select(
+            selectMoviesSearchSettings,
+        );
+        yield put(loadMoviesAction({ ...searchSettings }));
+        // ---------------
     } catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }
 
 function* handleUpdateMovieConfig({ payload }: UpdateMovieConfigAction) {
     try {
         yield call(updateMovie, payload.config);
+        yield put(cleanMovieConfigAction());
+
+        //TODO: will be deleted when React-Routes will be added.
+        const searchSettings: MoviesSearchSettings = yield select(
+            selectMoviesSearchSettings,
+        );
+        yield put(loadMoviesAction({ ...searchSettings }));
+        // ---------------
     } catch (e) {
         console.error(e);
     }

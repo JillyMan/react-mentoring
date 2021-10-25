@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import Modal from '@mui/material/Modal';
 import { MovieConfig } from 'shared/types/movies';
