@@ -10,22 +10,21 @@ import DateAdapter from '@mui/lab/AdapterMoment';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { Provider } from 'react-redux';
 
-interface Props {
-    movieId: number | undefined;
-}
+const INVALID_MOVIE_ID = 0;
 
-export const MainAppComponent = ({ movieId }: Props) => {
+export const MainAppComponent = () => {
+    const [selectedMovieId, setSelectedMovieId] = useState(INVALID_MOVIE_ID);
     return (
         <>
-            {movieId ? (
+            {selectedMovieId ? (
                 <MovieDetailsContainer
-                    movieId={movieId}
-                    onClose={() => console.log('close details')}
+                    movieId={selectedMovieId}
+                    onClose={() => setSelectedMovieId(INVALID_MOVIE_ID)}
                 />
             ) : (
                 <HeaderContainer />
             )}
-            <ContentMoviesContainer />
+            <ContentMoviesContainer onMovieClick={(id) => setSelectedMovieId(id)} />
             <Box sx={{ marginLeft: '50%' }}>
                 <MainLogo />
             </Box>

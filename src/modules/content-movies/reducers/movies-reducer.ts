@@ -53,6 +53,7 @@ export const moviesReducer = (
                           ...state.searchSettings,
                           searchBy: 'genres',
                           genresFilter: option as string[],
+                          searchValue: '',
                       },
                   }
                 : {
@@ -61,6 +62,7 @@ export const moviesReducer = (
                           ...state.searchSettings,
                           searchBy: 'title',
                           searchValue: option as string,
+                          genresFilter: [],
                       },
                   };
         }

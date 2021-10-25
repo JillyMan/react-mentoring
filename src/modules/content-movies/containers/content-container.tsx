@@ -44,7 +44,11 @@ interface DispatchProps {
     ) => SetSearchMoviesFilterAction;
 }
 
-type Props = StateProps & DispatchProps;
+interface OwnProps {
+    onMovieClick: (id: number) => void;
+}
+
+type Props = StateProps & DispatchProps & OwnProps;
 
 export const ContentMoviesComponentContainer = ({
     movies,
@@ -53,6 +57,7 @@ export const ContentMoviesComponentContainer = ({
     clearMovies,
     setSortValue,
     setSearchFilter,
+    onMovieClick,
 }: Props) => {
     useEffect(() => {
         loadMovies({ ...search });
@@ -79,7 +84,7 @@ export const ContentMoviesComponentContainer = ({
     };
 
     const handleMovieClick = (movie: MovieConfig) => {
-        console.log('open movie: ', movie.title);
+        movie.id && onMovieClick(movie.id);
     };
 
     return (

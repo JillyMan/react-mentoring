@@ -15,11 +15,12 @@ const useMovie = (movieId: number) => {
 
     useEffect(() => {
         setLoading(true);
-
-        getMovie(movieId).then((result) => {
-            setMovie(result);
-            setLoading(false);
-        });
+        setTimeout(() => {
+            getMovie(movieId).then((result) => {
+                setMovie(result);
+                setLoading(false);
+            });
+        }, 1000);
     }, [movieId]);
 
     return {

@@ -20,7 +20,7 @@ export const getMovies = async (
         filter: searchFilter.genresFilter?.join(','),
     });
 
-export const getMovie = async (id: number) => await api.get<MovieConfig>(``, { id });
+export const getMovie = async (id: number) => await api.get<MovieConfig>(`${id}`);
 
 export const addMovie = async (movie: MovieConfig) =>
     await api.post('', { ...movie, id: undefined });

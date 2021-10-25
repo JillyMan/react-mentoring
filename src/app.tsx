@@ -14,7 +14,7 @@ export const App = ({ store }: AppProps) => {
     return (
         <LocalizationProvider dateAdapter={DateAdapter}>
             <Provider store={store}>
-                <MainAppComponent movieId={undefined} />
+                <MainAppComponent />
             </Provider>
         </LocalizationProvider>
     );
