@@ -3,7 +3,7 @@ import { call, takeEvery, put, select } from '@redux-saga/core/effects';
 import { loadMoviesAction } from 'modules/content-movies/actions/actions';
 import { selectMoviesSearchSettings } from 'modules/content-movies/selectors/select-movies-search-settings';
 import { MoviesSearchSettings } from 'modules/content-movies/types/movies-state';
-///----
+// ----
 import { addMovie, getMovie, updateMovie } from 'shared/services/movies-services';
 import { MovieConfig } from 'shared/types/movies';
 import {

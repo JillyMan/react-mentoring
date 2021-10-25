@@ -140,7 +140,7 @@ export const ConfigurationMovie = forwardRef(
                             onChange={(e) =>
                                 onKeyValueChange(
                                     movieConfigNames.vote_average,
-                                    e.target.value ? Number(e.target.value) : undefined,
+                                    Number(e.target.value),
                                 )
                             }
                         />
@@ -178,13 +178,10 @@ export const ConfigurationMovie = forwardRef(
                             label='Runtime'
                             value={movieConfig.runtime || ''}
                             onChange={(e) => {
-                                e.target.value &&
-                                    onKeyValueChange(
-                                        movieConfigNames.runtime,
-                                        e.target.value
-                                            ? Number(e.target.value)
-                                            : undefined,
-                                    );
+                                onKeyValueChange(
+                                    movieConfigNames.runtime,
+                                    Number(e.target.value),
+                                );
                             }}
                         />
                     </Grid>
