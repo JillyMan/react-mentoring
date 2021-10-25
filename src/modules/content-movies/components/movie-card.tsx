@@ -2,7 +2,6 @@ import React, { ComponentType, useEffect, useState } from 'react';
 import {
     Box,
     Grid,
-    CardMedia,
     CardContent,
     CardActionArea,
     Card,
@@ -11,7 +10,7 @@ import {
 } from '@mui/material';
 import { MovieConfig } from 'shared/types/movies';
 import { formatGenres } from 'modules/shared/format-genres';
-import { ConfigurationMovieSpeedDial } from './movie-edit-delete-speed-dial';
+import { EditDeleteMovieSpeedDial } from './movie-edit-delete-speed-dial';
 import { CardMediaWithDefaultImg } from 'modules/shared/components/card-media-with-default-img';
 
 interface Props {
@@ -28,7 +27,7 @@ export const MovieCard = ({ movie, onMovieClick }: Props) => {
                 <CardActionArea onClick={() => onMovieClick(movie)}>
                     <CardMediaWithDefaultImg url={movie.poster_path} />
                 </CardActionArea>
-                <ConfigurationMovieSpeedDial hidden={hidden} movieId={movie.id} />
+                <EditDeleteMovieSpeedDial hidden={hidden} movieId={movie.id} />
                 <CardActionArea onClick={() => onMovieClick(movie)}>
                     <CardContent>
                         <Grid container>

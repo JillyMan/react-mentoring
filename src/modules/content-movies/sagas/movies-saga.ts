@@ -1,6 +1,6 @@
 import { call, put, select, takeEvery } from '@redux-saga/core/effects';
 import { deleteMovie, getMovies } from 'shared/services/movies-services';
-import { MovieConfig } from 'shared/types/movies';
+import { MovieConfig, MoviesSearchFilter } from 'shared/types/movies';
 import { PagedList } from 'shared/types/paged-list';
 import {
     DeleteMovieConfigActon,
@@ -11,18 +11,13 @@ import {
     storeMoviesAction,
 } from '../actions/actions';
 import { selectMoviesSearchSettings } from '../selectors/select-movies-search-settings';
-import { MoviesSearchSettings } from '../types/movies-state';
 
 function* handleLoadMovies({ payload }: LoadMoviesWithQueryAction) {
     try {
-        const { offset, limit } = payload;
-        const moviesInfo: PagedList<MovieConfig> = yield call(getMovies, offset, limit, {
-            sortBy: payload.sortBy,
-            sortOrder: payload.sortOrder,
-            genresFilter: payload.genresFilter,
-            searchBy: payload.searchBy,
-            searchValue: payload.searchValue,
-        });
+        const moviesInfo: PagedList<MovieConfig> = yield call(
+            getMovies,
+            payload.searchFilter,
+        );
 
         yield put(
             storeMoviesAction({
@@ -38,10 +33,8 @@ function* handleLoadMovies({ payload }: LoadMoviesWithQueryAction) {
 function* handleDeleteMovieConfig({ payload }: DeleteMovieConfigActon) {
     try {
         yield call(deleteMovie, payload.id);
-        const searchSettings: MoviesSearchSettings = yield select(
-            selectMoviesSearchSettings,
-        );
-        yield put(loadMoviesAction({ ...searchSettings }));
+        const searchFilter: MoviesSearchFilter = yield select(selectMoviesSearchSettings);
+        yield put(loadMoviesAction({ searchFilter }));
     } catch (e) {
         console.error(e);
     }

@@ -1,18 +1,13 @@
-import { MovieConfig } from 'shared/types/movies';
+import { MovieConfig, MoviesSearchFilter } from 'shared/types/movies';
 import { PagedList } from 'shared/types/paged-list';
-import { SearchFilter } from 'shared/types/search-filter';
 import { FetchApi } from 'shared/utils/fetch-api';
 
 const api = new FetchApi('http://localhost:4000/movies');
 
-export const getMovies = async (
-    offset: number,
-    limit: number,
-    searchFilter: SearchFilter,
-) =>
+export const getMovies = async (searchFilter: MoviesSearchFilter) =>
     await api.get<PagedList<MovieConfig>>('', {
-        limit,
-        offset,
+        limit: searchFilter.limit,
+        offset: searchFilter.offset,
         sortBy: searchFilter.sortBy,
         sortOrder: searchFilter.sortOrder,
         search: searchFilter.searchValue,

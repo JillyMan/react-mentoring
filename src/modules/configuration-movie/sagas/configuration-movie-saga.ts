@@ -2,10 +2,9 @@ import { call, takeEvery, put, select } from '@redux-saga/core/effects';
 //TODO: will be deleted when React-Routes will be added
 import { loadMoviesAction } from 'modules/content-movies/actions/actions';
 import { selectMoviesSearchSettings } from 'modules/content-movies/selectors/select-movies-search-settings';
-import { MoviesSearchSettings } from 'modules/content-movies/types/movies-state';
 // ----
 import { addMovie, getMovie, updateMovie } from 'shared/services/movies-services';
-import { MovieConfig } from 'shared/types/movies';
+import { MovieConfig, MoviesSearchFilter } from 'shared/types/movies';
 import {
     LoadMovieConfigActon,
     LOAD_MOVIE_CONFIG,
@@ -23,10 +22,8 @@ function* handleSaveNewMovieConfig({ payload }: SaveNewMovieConfigAction) {
         yield put(cleanMovieConfigAction());
 
         //TODO: will be deleted when React-Routes will be added
-        const searchSettings: MoviesSearchSettings = yield select(
-            selectMoviesSearchSettings,
-        );
-        yield put(loadMoviesAction({ ...searchSettings }));
+        const searchFilter: MoviesSearchFilter = yield select(selectMoviesSearchSettings);
+        yield put(loadMoviesAction({ searchFilter }));
         // ---------------
     } catch (e) {
         console.error(e);
@@ -39,10 +36,8 @@ function* handleUpdateMovieConfig({ payload }: UpdateMovieConfigAction) {
         yield put(cleanMovieConfigAction());
 
         //TODO: will be deleted when React-Routes will be added.
-        const searchSettings: MoviesSearchSettings = yield select(
-            selectMoviesSearchSettings,
-        );
-        yield put(loadMoviesAction({ ...searchSettings }));
+        const searchFilter: MoviesSearchFilter = yield select(selectMoviesSearchSettings);
+        yield put(loadMoviesAction({ searchFilter }));
         // ---------------
     } catch (e) {
         console.error(e);

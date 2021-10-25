@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { allGenres } from 'shared/types/genres';
-import { MovieConfig, movieConfigNames } from 'shared/types/movies';
+import { MovieConfig, movieConfigNames, MoviesSearchFilter } from 'shared/types/movies';
 import { AppState } from 'shared/types/store/app-state';
 import {
     ClearMoviesAction,
@@ -16,7 +16,7 @@ import {
     SetSortMoviesPayload,
 } from '../actions/actions';
 import { ContentMovies } from '../components/content-movies';
-import { MoviesSearchSettings } from '../types/movies-state';
+import {} from '../types/movies-state';
 
 const sortOptionsNames = {
     byDate: 'By date',
@@ -32,7 +32,7 @@ const mapSortOptionToField = {
 
 interface StateProps {
     movies: MovieConfig[] | null;
-    search: MoviesSearchSettings;
+    search: MoviesSearchFilter;
 }
 
 interface DispatchProps {
@@ -60,7 +60,7 @@ export const ContentMoviesComponentContainer = ({
     onMovieClick,
 }: Props) => {
     useEffect(() => {
-        loadMovies({ ...search });
+        loadMovies({ searchFilter: { ...search } });
 
         return () => {
             clearMovies();

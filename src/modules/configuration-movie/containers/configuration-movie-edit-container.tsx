@@ -1,24 +1,11 @@
-import React, { Dispatch, useEffect, useState } from 'react';
-import AddIcon from '@mui/icons-material/Add';
+import React, { useEffect } from 'react';
 import Modal from '@mui/material/Modal';
-import { MovieConfig } from 'shared/types/movies';
-import { AddMovieButton } from '../components/configuration-movie-add-button';
 import { configurationGenres } from 'shared/types/genres';
 import {
-    CleanMovieConfigAction,
     cleanMovieConfigAction,
     editMovieConfigAction,
-    EditMovieConfigAction,
-    EditMovieConfigPayload,
     loadMovieConfigAction,
-    LoadMovieConfigActon,
-    LoadMovieConfigPayload,
-    saveNewMovieConfigAction,
-    SaveNewMovieConfigAction,
-    SaveNewMovieConfigPayload,
-    UpdateMovieConfigAction,
     updateMovieConfigAction,
-    UpdateMovieConfigPayload,
 } from '../actions/actions';
 import { AppState } from 'shared/types/store';
 import { connect } from 'react-redux';

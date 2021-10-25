@@ -1,13 +1,8 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Box, SpeedDialAction, SpeedDialIcon, Modal } from '@mui/material';
-import { ConfigurationMovieDeleteDialog } from './movie-delete-dialoge';
-import { MovieConfig } from 'shared/types/movies';
-import { configurationGenres } from 'shared/types/genres';
-import { ConfigurationMovie } from '../../configuration-movie/components/configuration-movie';
 import { ConfigurationSpeedDial } from '../../configuration-movie/components/configuration-movie-speed-dial';
-import { ConfigurationMovieWithValidation } from '../../configuration-movie/components/configuration-movie-with-validation';
 import { MovieDeleteDialogContainer } from '../containers/movie-delete-dialog-container';
 import { ConfigurationMovieUpdateContainer } from '../../configuration-movie/containers/configuration-movie-edit-container';
 
@@ -16,7 +11,7 @@ interface Props {
     hidden: boolean;
 }
 
-export const ConfigurationMovieSpeedDial = React.memo(({ hidden, movieId }: Props) => {
+export const EditDeleteMovieSpeedDial = ({ hidden, movieId }: Props) => {
     const [showEdit, setShowEdit] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
 
@@ -59,4 +54,4 @@ export const ConfigurationMovieSpeedDial = React.memo(({ hidden, movieId }: Prop
             )}
         </Box>
     );
-});
+};

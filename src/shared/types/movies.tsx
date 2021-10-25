@@ -28,6 +28,17 @@ export const initialMovieConfig: MovieConfig = {
     runtime: 0,
 };
 
+export interface MoviesSearchFilter {
+    offset: number;
+    limit: number;
+
+    sortBy?: string;
+    sortOrder?: 'desc' | 'asc';
+    searchValue?: string;
+    searchBy?: 'title' | 'genres';
+    genresFilter: string[];
+}
+
 export const movieConfigNames = {
     id: 'id',
     title: 'title',

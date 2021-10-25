@@ -1,4 +1,4 @@
-import { MovieConfig, movieConfigNames } from 'shared/types/movies';
+import { movieConfigNames } from 'shared/types/movies';
 
 export const requiredFildsName = [
     movieConfigNames.title,

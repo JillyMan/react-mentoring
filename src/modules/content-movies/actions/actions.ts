@@ -1,4 +1,4 @@
-import { MovieConfig } from 'shared/types/movies';
+import { MovieConfig, MoviesSearchFilter } from 'shared/types/movies';
 import { Action } from 'shared/types/store';
 import { createAction } from 'shared/utils/store/create-action';
 
@@ -11,13 +11,7 @@ export const SET_SEARCH_MOVIES_FILTER = 'SET_SEARCH_MOVIES_FILTER';
 export const DELETE_MOVIE_CONFIG = 'DELETE_MOVIE';
 
 export interface LoadMoviesQueryPayload {
-    offset: number;
-    limit: number;
-    sortBy?: string;
-    sortOrder?: 'desc' | 'asc';
-    searchValue?: string;
-    searchBy?: 'title' | 'genres';
-    genresFilter?: string[];
+    searchFilter: MoviesSearchFilter;
 }
 export interface DeleteMovieConfigPayload {
     id: number;

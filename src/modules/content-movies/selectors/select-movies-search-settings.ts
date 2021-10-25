@@ -1,5 +1,5 @@
+import { MoviesSearchFilter } from 'shared/types/movies';
 import { AppState } from 'shared/types/store';
-import { MoviesSearchSettings } from '../types/movies-state';
 
-export const selectMoviesSearchSettings = (state: AppState): MoviesSearchSettings =>
+export const selectMoviesSearchSettings = (state: AppState): MoviesSearchFilter =>
     state.movies.searchSettings;
