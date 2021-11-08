@@ -20,13 +20,7 @@ import { SubmitButton } from 'modules/shared/components/submit-button';
 import { Input } from 'modules/shared/components/input';
 import { ResetButton } from 'modules/shared/components/reset-button';
 import { uniq } from 'shared/utils/';
-
-interface Props {
-    configTitle: 'ADD' | 'EDIT';
-    movieConfig: MovieConfig;
-    avaliableGenres: string[];
-    onSubmitClick: (movieConfig: MovieConfig) => void;
-}
+import { InputValues } from 'shared/types/input-values';
 
 const HeightItem = 57;
 
@@ -47,63 +41,46 @@ const MenuProps = {
     },
 };
 
-const requiredFildsName = [
-    movieConfigNames.title,
-    movieConfigNames.release_date,
-    movieConfigNames.poster_path,
-    movieConfigNames.vote_average,
-    movieConfigNames.genres,
-    movieConfigNames.runtime,
-    movieConfigNames.overview,
-];
+export interface ConfigurationMovieProps {
+    configTitle: 'ADD' | 'EDIT';
+    movieConfig: MovieConfig;
+    avaliableGenres: string[];
+    submitDisabled?: boolean;
 
-const requiredFildFilled = (
-    filds: typeof requiredFildsName,
-    movieConfig: MovieConfig,
-) => {
-    return filds.every((field) => !!movieConfig[field as keyof MovieConfig]);
-};
+    onKeyValueChange: (key: string, value: InputValues) => void;
+    onResetClick: () => void;
+    onSubmitClick: () => void;
+}
 
 export const ConfigurationMovie = forwardRef(
-    ({ configTitle, movieConfig, avaliableGenres, onSubmitClick }: Props) => {
-        const [config, setConfig] = useState(movieConfig);
+    ({
+        configTitle,
+        movieConfig,
+        submitDisabled,
+        avaliableGenres,
+        onKeyValueChange,
+        onResetClick,
+        onSubmitClick,
+    }: ConfigurationMovieProps) => {
         const allGenres = useMemo(
             () => uniq([...avaliableGenres, ...movieConfig.genres]),
             [movieConfig.genres],
         );
 
-        const onKeyChangeHandle = (key: string, value: string | string[]) => {
-            setConfig({ ...config, [key]: value });
-        };
-
-        const onSubmitHandle = () => {
-            onSubmitClick(config);
-        };
-
-        const onResetHandle = () => {
-            setConfig({
-                ...config,
-                title: '',
-                release_date: '',
-                poster_path: '',
-                vote_average: 0,
-                genres: [],
-                runtime: 0,
-                overview: '',
-            });
-        };
-
-        const onHandleGenreChange = (event: SelectChangeEvent<typeof config.genres>) => {
+        const handleGenreChange = (
+            event: SelectChangeEvent<typeof movieConfig.genres>,
+        ) => {
             const {
                 target: { value },
             } = event;
-            setConfig({
-                ...config,
-                genres: typeof value === 'string' ? value.split(',') : value,
-            });
+
+            onKeyValueChange(
+                movieConfigNames.genres,
+                typeof value === 'string' ? value.split(',') : value,
+            );
         };
 
-        const submitButtonDisabled = !requiredFildFilled(requiredFildsName, config);
+        const submitButtonDisabled = !!submitDisabled;
 
         return (
             <ConfigurationMovieBox>
@@ -117,18 +94,18 @@ export const ConfigurationMovie = forwardRef(
                             label='Title'
                             variant='outlined'
                             style={configurationStyles.input}
-                            value={config.title}
+                            value={movieConfig.title}
                             onChange={(e) =>
-                                onKeyChangeHandle(movieConfigNames.title, e.target.value)
+                                onKeyValueChange(movieConfigNames.title, e.target.value)
                             }
                         />
                     </Grid>
                     <Grid item xs={4}>
                         <DatePicker
                             label='Release date'
-                            value={config.release_date}
+                            value={movieConfig.release_date}
                             onChange={(newValue) => {
-                                onKeyChangeHandle(
+                                onKeyValueChange(
                                     movieConfigNames.release_date,
                                     formatDate(newValue),
                                 );
@@ -144,9 +121,9 @@ export const ConfigurationMovie = forwardRef(
                             label='Movie Url'
                             variant='outlined'
                             type='url'
-                            value={config.poster_path}
+                            value={movieConfig.poster_path}
                             onChange={(e) =>
-                                onKeyChangeHandle(
+                                onKeyValueChange(
                                     movieConfigNames.poster_path,
                                     e.target.value,
                                 )
@@ -159,11 +136,11 @@ export const ConfigurationMovie = forwardRef(
                             variant='outlined'
                             type='number'
                             label='Rating'
-                            value={config.vote_average}
+                            value={movieConfig.vote_average || ''}
                             onChange={(e) =>
-                                onKeyChangeHandle(
+                                onKeyValueChange(
                                     movieConfigNames.vote_average,
-                                    e.target.value,
+                                    Number(e.target.value),
                                 )
                             }
                         />
@@ -174,8 +151,8 @@ export const ConfigurationMovie = forwardRef(
                             <Select
                                 labelId='genres-checkbox-label'
                                 multiple
-                                value={config.genres}
-                                onChange={onHandleGenreChange}
+                                value={movieConfig.genres}
+                                onChange={handleGenreChange}
                                 input={<OutlinedInput label='Genres' />}
                                 renderValue={(selected) => selected.join(', ')}
                                 MenuProps={MenuProps}
@@ -183,7 +160,9 @@ export const ConfigurationMovie = forwardRef(
                                 {allGenres.map((genre, id) => (
                                     <MenuItem key={id} value={genre}>
                                         <Checkbox
-                                            checked={config.genres.indexOf(genre) > -1}
+                                            checked={
+                                                movieConfig.genres.indexOf(genre) > -1
+                                            }
                                         />
                                         <ListItemText primary={genre} />
                                     </MenuItem>
@@ -194,16 +173,16 @@ export const ConfigurationMovie = forwardRef(
                     <Grid item xs={4}>
                         <Input
                             style={configurationStyles.input}
-                            variant='outlined'
                             type='number'
+                            variant='outlined'
                             label='Runtime'
-                            value={config.runtime}
-                            onChange={(e) =>
-                                onKeyChangeHandle(
+                            value={movieConfig.runtime || ''}
+                            onChange={(e) => {
+                                onKeyValueChange(
                                     movieConfigNames.runtime,
-                                    e.target.value,
-                                )
-                            }
+                                    Number(e.target.value),
+                                );
+                            }}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -213,9 +192,9 @@ export const ConfigurationMovie = forwardRef(
                             minRows={3}
                             maxRows={6}
                             label='Overview'
-                            value={config.overview}
+                            value={movieConfig.overview}
                             onChange={(e) =>
-                                onKeyChangeHandle(
+                                onKeyValueChange(
                                     movieConfigNames.overview,
                                     e.target.value,
                                 )
@@ -225,7 +204,7 @@ export const ConfigurationMovie = forwardRef(
                     <Grid item xs={6} />
 
                     <Grid item xs={3}>
-                        <ResetButton variant='outlined' onClick={onResetHandle}>
+                        <ResetButton variant='outlined' onClick={onResetClick}>
                             RESET
                         </ResetButton>
                     </Grid>
@@ -233,7 +212,7 @@ export const ConfigurationMovie = forwardRef(
                         <SubmitButton
                             variant='contained'
                             endIcon={<SendIcon />}
-                            onClick={onSubmitHandle}
+                            onClick={onSubmitClick}
                             disabled={submitButtonDisabled}
                         >
                             SUBMIT

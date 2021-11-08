@@ -6,21 +6,14 @@ import { MovieConfig } from 'shared/types/movies';
 interface Props {
     movies: MovieConfig[];
     onMovieClick: (movie: MovieConfig) => void;
-    onDeleteMovie: (id: number) => void;
-    onUpdateMovie: (movei: MovieConfig) => void;
 }
 
-export const Movies = ({ movies, onMovieClick, onDeleteMovie, onUpdateMovie }: Props) => {
+export const Movies = ({ movies, onMovieClick }: Props) => {
     return (
         <Grid container rowSpacing={3} spacing={3}>
             {movies.map((movie, id) => (
                 <Grid item xs={3} key={movie.id}>
-                    <MovieCardWithError
-                        onMovieClick={onMovieClick}
-                        onDeleteMovie={onDeleteMovie}
-                        onUpdateMovie={onUpdateMovie}
-                        movie={movie}
-                    />
+                    <MovieCardWithError onMovieClick={onMovieClick} movie={movie} />
                 </Grid>
             ))}
         </Grid>

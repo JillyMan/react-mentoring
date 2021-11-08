@@ -2,7 +2,6 @@ import React, { ComponentType, useEffect, useState } from 'react';
 import {
     Box,
     Grid,
-    CardMedia,
     CardContent,
     CardActionArea,
     Card,
@@ -10,29 +9,17 @@ import {
     Typography,
 } from '@mui/material';
 import { MovieConfig } from 'shared/types/movies';
-import { ConfigurationMovieSpeedDial } from 'modules/configuration-movie/components/configuration-movie-edit-delete-speed-dial';
 import { formatGenres } from 'modules/shared/format-genres';
+import { EditDeleteMovieSpeedDial } from './movie-edit-delete-speed-dial';
 import { CardMediaWithDefaultImg } from 'modules/shared/components/card-media-with-default-img';
 
 interface Props {
     movie: MovieConfig;
-    onDeleteMovie: (id: number) => void;
     onMovieClick: (movie: MovieConfig) => void;
-    onUpdateMovie: (movie: MovieConfig) => void;
 }
 
-export const MovieCard = ({
-    movie,
-    onMovieClick,
-    onDeleteMovie,
-    onUpdateMovie,
-}: Props) => {
-    const [imgUrl, setImgUrl] = useState(movie.poster_path);
+export const MovieCard = ({ movie, onMovieClick }: Props) => {
     const [hidden, setHidden] = useState(true);
-
-    useEffect(() => {
-        setImgUrl(movie.poster_path);
-    }, [movie]);
 
     return (
         <Box sx={{ borderRadius: 16, boxShadow: 3 }}>
@@ -40,12 +27,7 @@ export const MovieCard = ({
                 <CardActionArea onClick={() => onMovieClick(movie)}>
                     <CardMediaWithDefaultImg url={movie.poster_path} />
                 </CardActionArea>
-                <ConfigurationMovieSpeedDial
-                    onDeleteMovie={onDeleteMovie}
-                    onUpdateMovie={onUpdateMovie}
-                    hidden={hidden}
-                    movie={movie}
-                />
+                <EditDeleteMovieSpeedDial hidden={hidden} movieId={movie.id} />
                 <CardActionArea onClick={() => onMovieClick(movie)}>
                     <CardContent>
                         <Grid container>

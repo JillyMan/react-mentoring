@@ -1,7 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { allGenres } from 'shared/types/genres';
-import { MovieConfig } from 'shared/types/movies';
+import { MovieConfig, movieConfigNames, MoviesSearchFilter } from 'shared/types/movies';
+import { AppState } from 'shared/types/store/app-state';
+import {
+    ClearMoviesAction,
+    clearMoviesAction,
+    loadMoviesAction,
+    LoadMoviesQueryPayload,
+    setFilterMoviesAction,
+    SetSearchMoviesFilterAction,
+    SetSearchMoviesFilterPayload,
+    setSortMoviesAction,
+    SetSortMoviesAction,
+    SetSortMoviesPayload,
+} from '../actions/actions';
 import { ContentMovies } from '../components/content-movies';
+import {} from '../types/movies-state';
 
 const sortOptionsNames = {
     byDate: 'By date',
@@ -10,62 +25,96 @@ const sortOptionsNames = {
 
 const sortOptions = [sortOptionsNames.byDate, sortOptionsNames.byRating];
 
-function sortedMovies(option: string, movies: MovieConfig[]): MovieConfig[] {
-    if (option == sortOptionsNames.byDate) {
-        return movies.sort(
-            (a, b) =>
-                a &&
-                b &&
-                new Date(b.release_date).getTime() - new Date(a.release_date).getTime(),
-        );
-    } else if (option == sortOptionsNames.byRating) {
-        return movies.sort((a, b) => a && b && b.vote_average - a.vote_average);
-    }
+const mapSortOptionToField = {
+    'By date': movieConfigNames.release_date,
+    'By rating': movieConfigNames.vote_average,
+};
 
-    return movies;
+interface StateProps {
+    movies: MovieConfig[] | null;
+    search: MoviesSearchFilter;
 }
 
-function filterByGenre(genre: string, movies: MovieConfig[]): MovieConfig[] {
-    return genre !== 'All' ? movies.filter((x) => x && x.genres.includes(genre)) : movies;
+interface DispatchProps {
+    loadMovies: (payload: LoadMoviesQueryPayload) => void;
+    clearMovies: () => ClearMoviesAction;
+    setSortValue: (paylod: SetSortMoviesPayload) => SetSortMoviesAction;
+    setSearchFilter: (
+        paylod: SetSearchMoviesFilterPayload,
+    ) => SetSearchMoviesFilterAction;
 }
 
-interface Props {
-    movies: MovieConfig[];
-    onDeleteMovie: (id: number) => void;
-    onUpdateMovie: (movei: MovieConfig) => void;
-    onMovieClick: (movie: MovieConfig) => void;
+interface OwnProps {
+    onMovieClick: (id: number) => void;
 }
 
-export const ContentMoviesContainer = ({
+type Props = StateProps & DispatchProps & OwnProps;
+
+export const ContentMoviesComponentContainer = ({
     movies,
+    search,
+    loadMovies,
+    clearMovies,
+    setSortValue,
+    setSearchFilter,
     onMovieClick,
-    onDeleteMovie,
-    onUpdateMovie,
 }: Props) => {
-    const [selectedGenre, setSelectedGenre] = useState(allGenres[0]);
-    const [sortOption, setSortOption] = useState(sortOptions[0]);
+    useEffect(() => {
+        loadMovies({ searchFilter: { ...search } });
 
-    const filterdMovies = sortedMovies(sortOption, filterByGenre(selectedGenre, movies));
+        return () => {
+            clearMovies();
+        };
+    }, [search]);
 
-    const onHandleGenreChange = (genre: string) => {
-        setSelectedGenre(genre);
+    const handleGenreChange = (genre: string) => {
+        setSearchFilter({
+            searchBy: 'genres',
+            option: genre != 'All' ? [genre] : [],
+        });
     };
 
-    const onHandleSortChange = (sort: string) => {
-        setSortOption(sort);
+    const handleSortChange = (sort: string) => {
+        setSortValue({
+            sortField:
+                sort === sortOptionsNames.byDate
+                    ? movieConfigNames.release_date
+                    : movieConfigNames.vote_average,
+        });
+    };
+
+    const handleMovieClick = (movie: MovieConfig) => {
+        movie.id && onMovieClick(movie.id);
     };
 
     return (
         <ContentMovies
             options={allGenres}
-            selectedOption={selectedGenre}
+            selectedOption={
+                search.genresFilter.length == 1 ? search.genresFilter[0] : 'All'
+            }
             sortOptions={sortOptions}
-            movies={filterdMovies}
-            onMovieClick={onMovieClick}
-            onOptionChanged={onHandleGenreChange}
-            onSortOptionChanged={onHandleSortChange}
-            onDeleteMovie={onDeleteMovie}
-            onUpdateMovie={onUpdateMovie}
+            movies={movies || []}
+            onSortOptionChanged={handleSortChange}
+            onOptionChanged={handleGenreChange}
+            onMovieClick={handleMovieClick}
         />
     );
 };
+
+const mapStateToProps = (state: AppState) => ({
+    movies: state.movies.movies,
+    search: state.movies.searchSettings,
+});
+
+const mapDispatchToProps = {
+    loadMovies: loadMoviesAction,
+    clearMovies: clearMoviesAction,
+    setSortValue: setSortMoviesAction,
+    setSearchFilter: setFilterMoviesAction,
+};
+
+export const ContentMoviesContainer = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(ContentMoviesComponentContainer);
