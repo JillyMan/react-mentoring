@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import Modal from '@mui/material/Modal';
-import { MovieConfig } from 'shared/types/movies';
+import { initialMovieConfig, MovieConfig } from 'shared/types/movies';
 import { AddMovieButton } from '../components/configuration-movie-add-button';
 import { configurationGenres } from 'shared/types/genres';
 import {
@@ -18,41 +18,23 @@ import { AppState } from 'shared/types/store';
 import { connect } from 'react-redux';
 import { ConfigurationMovieWithValidation } from '../components/configuration-movie-with-validation';
 import { InputValues } from 'shared/types/input-values';
-
-interface StateProps {
-    draftConfig: MovieConfig;
-}
+import { useFormik } from 'formik';
+import { ConfigurationMovie } from '../components/configuration-movie';
 
 interface DispatchProps {
-    editDraftConfig: (payload: EditMovieConfigPayload) => EditMovieConfigAction;
-    cleanMovieConfig: () => CleanMovieConfigAction;
     saveNewMovie: (payload: SaveNewMovieConfigPayload) => SaveNewMovieConfigAction;
 }
 
-type Props = StateProps & DispatchProps;
+type Props = DispatchProps;
 
-const AddMovieButtonComponentContainer = ({
-    draftConfig,
-    editDraftConfig,
-    cleanMovieConfig,
-    saveNewMovie,
-}: Props) => {
+const AddMovieButtonComponentContainer = ({ saveNewMovie }: Props) => {
     const [open, setOpen] = useState(false);
     const onHandleClose = () => setOpen(false);
     const onHandleOpen = () => setOpen(true);
 
-    const onSubmitHandle = () => {
+    const handleSaveConfig = (config: MovieConfig) => {
+        saveNewMovie({ config });
         onHandleClose();
-        saveNewMovie({ config: draftConfig });
-    };
-
-    const handleKeyValueChange = (key: string, value: InputValues) => {
-        editDraftConfig({
-            config: {
-                ...draftConfig,
-                [key]: value,
-            },
-        });
     };
 
     return (
@@ -65,13 +47,11 @@ const AddMovieButtonComponentContainer = ({
                 Add Movie
             </AddMovieButton>
             <Modal open={open} onClose={onHandleClose}>
-                <ConfigurationMovieWithValidation
+                <ConfigurationMovie
                     configTitle='ADD'
                     avaliableGenres={configurationGenres}
-                    movieConfig={draftConfig}
-                    onKeyValueChange={handleKeyValueChange}
-                    onResetClick={cleanMovieConfig}
-                    onSubmitClick={onSubmitHandle}
+                    movieConfig={initialMovieConfig}
+                    onSubmitClick={handleSaveConfig}
                 />
             </Modal>
         </>
