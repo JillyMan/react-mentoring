@@ -15,7 +15,6 @@ interface DispatchProps {
 
 interface OwnProps {
     id: number;
-    show: boolean;
     onCloseDialog: () => void;
 }
 
@@ -23,7 +22,6 @@ type Props = StateProps & DispatchProps & OwnProps;
 
 const MovieDeleteComponentContainer = ({
     id,
-    show,
     onCloseDialog,
     deleteMovieConfig,
 }: Props) => {
@@ -34,7 +32,7 @@ const MovieDeleteComponentContainer = ({
 
     return (
         <ConfigurationMovieDeleteDialog
-            show={show}
+            show
             onClose={onCloseDialog}
             onSubmitClick={handleSubmit}
         />

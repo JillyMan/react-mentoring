@@ -1,3 +1,5 @@
+import * as yup from 'yup';
+
 export interface MovieConfig {
     id: number;
     title: string;
@@ -53,3 +55,13 @@ export const movieConfigNames = {
     genres: 'genres',
     runtime: 'runtime',
 };
+
+export const validationMovieConfigSchema = yup.object({
+    title: yup.string().required('Title is required'),
+    release_date: yup.string().required('Release date is required'),
+    poster_path: yup.string().url().required('Poster is required'),
+    genres: yup.array().required('Genres is required'),
+    vote_average: yup.number().max(10).min(0).required('Vote average is required'),
+    runtime: yup.number().min(0).required('Title is required'),
+    overview: yup.string().required('Overview is required'),
+});

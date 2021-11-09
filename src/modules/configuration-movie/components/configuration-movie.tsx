@@ -13,15 +13,18 @@ import {
     MenuItem,
     Checkbox,
 } from '@mui/material';
-import { initialMovieConfig, MovieConfig, movieConfigNames } from 'shared/types/movies';
+import {
+    initialMovieConfig,
+    MovieConfig,
+    movieConfigNames,
+    validationMovieConfigSchema,
+} from 'shared/types/movies';
 import { formatDate } from 'shared/utils/date-format';
 import { ConfigurationMovieBox } from './configuration-movie-box';
 import { SubmitButton } from 'modules/shared/components/submit-button';
 import { Input } from 'modules/shared/components/input';
 import { ResetButton } from 'modules/shared/components/reset-button';
 import { uniq } from 'shared/utils/';
-import { InputValues } from 'shared/types/input-values';
-import * as yup from 'yup';
 import { useFormik } from 'formik';
 
 const HeightItem = 57;
@@ -52,21 +55,10 @@ export interface ConfigurationMovieProps {
     onSubmitClick: (config: MovieConfig) => void;
 }
 
-const validationMovieConfigSchema = yup.object({
-    title: yup.string().required('Title is required'),
-    release_date: yup.string().required('Release date is required'),
-    poster_path: yup.string().url().required('Poster is required'),
-    genres: yup.array().required('Genres is required'),
-    vote_average: yup.number().max(10).min(0).required('Vote average is required'),
-    runtime: yup.number().min(0).required('Title is required'),
-    overview: yup.string().required('Overview is required'),
-});
-
 export const ConfigurationMovie = forwardRef(
     ({
         configTitle,
         movieConfig,
-        submitDisabled,
         avaliableGenres,
         onSubmitClick,
     }: ConfigurationMovieProps) => {

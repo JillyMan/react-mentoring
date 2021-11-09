@@ -9,8 +9,8 @@ import {
 } from '../actions/actions';
 import { AppState } from 'shared/types/store';
 import { connect } from 'react-redux';
-import { ConfigurationMovieWithValidation } from '../components/configuration-movie-with-validation';
-import { InputValues } from 'shared/types/input-values';
+import { ConfigurationMovie } from '../components/configuration-movie';
+import { MovieConfig } from 'shared/types/movies';
 
 const mapStateToProps = (state: AppState) => ({
     draftConfig: state.draftMovieConfig.draftConfig,
@@ -28,7 +28,6 @@ type DispatchProps = typeof mapDispatchToProps;
 
 interface OwnProps {
     id: number;
-    show: boolean;
     onCloseModal: () => void;
 }
 
@@ -36,43 +35,32 @@ type Props = StateProps & DispatchProps & OwnProps;
 
 const ConfigurationMovieUpdateComponentContainer = ({
     id,
-    show,
     draftConfig,
     onCloseModal,
     loadMovieConfig,
-    editDraftConfig,
-    cleanMovieConfig,
     updateMovieConfig,
 }: Props) => {
+    console.log(id);
     useEffect(() => {
         loadMovieConfig({ id });
     }, [id]);
 
-    const onSubmitHandle = () => {
-        updateMovieConfig({ config: draftConfig });
+    const handleSubmit = (config: MovieConfig) => {
+        updateMovieConfig({ config });
         onCloseModal();
     };
 
-    const handleKeyValueChange = (key: string, value: InputValues) => {
-        editDraftConfig({
-            config: {
-                ...draftConfig,
-                [key]: value,
-            },
-        });
-    };
-
-    return (
-        <Modal open={show} onClose={onCloseModal}>
-            <ConfigurationMovieWithValidation
+    return draftConfig.id == id ? (
+        <Modal open onClose={onCloseModal}>
+            <ConfigurationMovie
                 configTitle='EDIT'
                 avaliableGenres={configurationGenres}
                 movieConfig={draftConfig}
-                onKeyValueChange={handleKeyValueChange}
-                onResetClick={cleanMovieConfig}
-                onSubmitClick={onSubmitHandle}
+                onSubmitClick={handleSubmit}
             />
         </Modal>
+    ) : (
+        <></>
     );
 };
 

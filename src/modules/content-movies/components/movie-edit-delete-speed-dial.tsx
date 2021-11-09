@@ -40,7 +40,6 @@ export const EditDeleteMovieSpeedDial = ({ hidden, movieId }: Props) => {
             {showDelete && (
                 <MovieDeleteDialogContainer
                     id={movieId}
-                    show={showDelete}
                     onCloseDialog={() => setShowDelete(false)}
                 />
             )}
@@ -48,7 +47,6 @@ export const EditDeleteMovieSpeedDial = ({ hidden, movieId }: Props) => {
             {showEdit && (
                 <ConfigurationMovieUpdateContainer
                     id={movieId}
-                    show={showEdit}
                     onCloseModal={() => setShowEdit(false)}
                 />
             )}
