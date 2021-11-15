@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { allGenres } from 'shared/types/genres';
 import { MovieConfig, movieConfigNames, MoviesSearchFilter } from 'shared/types/movies';
 import { AppState } from 'shared/types/store/app-state';
+import { viewMovieDetailsPath } from 'shared/utils/route-path';
 import {
     ClearMoviesAction,
     clearMoviesAction,
@@ -44,9 +46,7 @@ interface DispatchProps {
     ) => SetSearchMoviesFilterAction;
 }
 
-interface OwnProps {
-    onMovieClick: (id: number) => void;
-}
+interface OwnProps {}
 
 type Props = StateProps & DispatchProps & OwnProps;
 
@@ -57,8 +57,9 @@ export const ContentMoviesComponentContainer = ({
     clearMovies,
     setSortValue,
     setSearchFilter,
-    onMovieClick,
 }: Props) => {
+    const navigate = useNavigate();
+
     useEffect(() => {
         loadMovies({ searchFilter: { ...search } });
 
@@ -84,7 +85,7 @@ export const ContentMoviesComponentContainer = ({
     };
 
     const handleMovieClick = (movie: MovieConfig) => {
-        movie.id && onMovieClick(movie.id);
+        movie.id && navigate(viewMovieDetailsPath.getPath(movie.id));
     };
 
     return (
