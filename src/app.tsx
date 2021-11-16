@@ -13,12 +13,12 @@ interface AppProps {
 
 export const App = ({ store }: AppProps) => {
     return (
-        <LocalizationProvider dateAdapter={DateAdapter}>
-            <Provider store={store}>
-                <BrowserRouter>
+        <BrowserRouter>
+            <LocalizationProvider dateAdapter={DateAdapter}>
+                <Provider store={store}>
                     <MainAppComponent />
-                </BrowserRouter>
-            </Provider>
-        </LocalizationProvider>
+                </Provider>
+            </LocalizationProvider>
+        </BrowserRouter>
     );
 };

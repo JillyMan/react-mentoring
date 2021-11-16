@@ -1,21 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
 import { allGenres } from 'shared/types/genres';
 import { MovieConfig, movieConfigNames, MoviesSearchFilter } from 'shared/types/movies';
 import { AppState } from 'shared/types/store/app-state';
-import { viewMovieDetailsPath } from 'shared/utils/route-path';
+import { getSearchParams } from 'shared/utils/search-params';
 import {
     ClearMoviesAction,
     clearMoviesAction,
     loadMoviesAction,
     LoadMoviesQueryPayload,
-    setFilterMoviesAction,
-    SetSearchMoviesFilterAction,
-    SetSearchMoviesFilterPayload,
-    setSortMoviesAction,
-    SetSortMoviesAction,
-    SetSortMoviesPayload,
 } from '../actions/actions';
 import { ContentMovies } from '../components/content-movies';
 import {} from '../types/movies-state';
@@ -27,11 +22,6 @@ const sortOptionsNames = {
 
 const sortOptions = [sortOptionsNames.byDate, sortOptionsNames.byRating];
 
-const mapSortOptionToField = {
-    'By date': movieConfigNames.release_date,
-    'By rating': movieConfigNames.vote_average,
-};
-
 interface StateProps {
     movies: MovieConfig[] | null;
     search: MoviesSearchFilter;
@@ -40,59 +30,77 @@ interface StateProps {
 interface DispatchProps {
     loadMovies: (payload: LoadMoviesQueryPayload) => void;
     clearMovies: () => ClearMoviesAction;
-    setSortValue: (paylod: SetSortMoviesPayload) => SetSortMoviesAction;
-    setSearchFilter: (
-        paylod: SetSearchMoviesFilterPayload,
-    ) => SetSearchMoviesFilterAction;
 }
 
 interface OwnProps {}
 
 type Props = StateProps & DispatchProps & OwnProps;
 
+function transformSortOption(sort: string) {
+    return sort === movieConfigNames.release_date
+        ? sortOptionsNames.byDate
+        : sortOptionsNames.byRating;
+}
+
 export const ContentMoviesComponentContainer = ({
     movies,
     search,
     loadMovies,
     clearMovies,
-    setSortValue,
-    setSearchFilter,
 }: Props) => {
+    const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
+    const parsedSearchParams = useMemo(
+        () => getSearchParams(searchParams),
+        [searchParams],
+    );
 
     useEffect(() => {
-        loadMovies({ searchFilter: { ...search } });
+        loadMovies({
+            searchFilter: {
+                ...search,
+                searchValue: parsedSearchParams.searchValue,
+                sortBy: parsedSearchParams.sortBy,
+                genresFilter: parsedSearchParams.genre ? [parsedSearchParams.genre] : [],
+                searchBy: parsedSearchParams.searchValue ? 'title' : 'genres',
+            },
+        });
 
         return () => {
             clearMovies();
         };
-    }, [search]);
+    }, [searchParams]);
 
     const handleGenreChange = (genre: string) => {
-        setSearchFilter({
-            searchBy: 'genres',
-            option: genre != 'All' ? [genre] : [],
+        genre = genre == 'All' ? '' : genre;
+        setSearchParams({
+            ...parsedSearchParams,
+            genre,
         });
     };
 
     const handleSortChange = (sort: string) => {
-        setSortValue({
-            sortField:
-                sort === sortOptionsNames.byDate
+        setSearchParams({
+            ...parsedSearchParams,
+            sortBy:
+                sort == sortOptionsNames.byDate
                     ? movieConfigNames.release_date
                     : movieConfigNames.vote_average,
         });
     };
 
     const handleMovieClick = (movie: MovieConfig) => {
-        movie.id && navigate(viewMovieDetailsPath.getPath(movie.id));
+        navigate(`movie=${movie.id}?${searchParams.toString()}`);
     };
 
     return (
         <ContentMovies
             options={allGenres}
-            selectedOption={
-                search.genresFilter.length == 1 ? search.genresFilter[0] : 'All'
+            selectedOption={parsedSearchParams.genre || 'All'}
+            selectedSortOption={
+                parsedSearchParams.sortBy
+                    ? transformSortOption(parsedSearchParams.sortBy)
+                    : sortOptions[0]
             }
             sortOptions={sortOptions}
             movies={movies || []}
@@ -111,8 +119,6 @@ const mapStateToProps = (state: AppState) => ({
 const mapDispatchToProps = {
     loadMovies: loadMoviesAction,
     clearMovies: clearMoviesAction,
-    setSortValue: setSortMoviesAction,
-    setSearchFilter: setFilterMoviesAction,
 };
 
 export const ContentMoviesContainer = connect(

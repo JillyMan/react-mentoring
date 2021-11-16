@@ -7,6 +7,7 @@ import { ConfigrationMovieAddButtonContainer } from 'modules/configuration-movie
 import BackgroundImage from 'assets/imges/header-bg.png';
 
 interface Props {
+    searchValue: string;
     onSearchClick: (search: string) => void;
 }
 
@@ -25,7 +26,7 @@ const styles = {
     },
 };
 
-export const Header = ({ onSearchClick }: Props) => {
+export const Header = ({ searchValue, onSearchClick }: Props) => {
     return (
         <Paper style={styles.paperContainer}>
             <Box sx={{ width: '100%' }}>
@@ -47,6 +48,7 @@ export const Header = ({ onSearchClick }: Props) => {
                         sx={{ marginLeft: '150px', marginBottom: '100px' }}
                     >
                         <SearchBox
+                            searchValue={searchValue}
                             text='What do your want to watch?'
                             onSearchClick={(s: string) => onSearchClick(s)}
                         />

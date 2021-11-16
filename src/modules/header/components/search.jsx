@@ -8,7 +8,7 @@ class SearchBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchText: '',
+            searchText: props.searchValue,
         };
 
         this.onSearchChange = this.onSearchChange.bind(this);
@@ -26,6 +26,7 @@ class SearchBox extends React.Component {
                         id='outlined-search'
                         label={this.props.text}
                         type='search'
+                        value={this.state.searchText}
                         onChange={(e) => this.onSearchChange(e.target.value)}
                     />
                 </Grid>
@@ -45,6 +46,7 @@ class SearchBox extends React.Component {
 
 SearchBox.propTypes = {
     text: PropTypes.string,
+    searchValue: PropTypes.string,
     onSearchClick: PropTypes.func,
 };
 

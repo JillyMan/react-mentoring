@@ -1,34 +1,25 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Header } from '../components';
-import {
-    setFilterMoviesAction,
-    SetSearchMoviesFilterAction,
-    SetSearchMoviesFilterPayload,
-} from 'modules/content-movies/actions/actions';
+import { useNavigate, useParams } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
+import { getSearchParams } from 'shared/utils/search-params';
 
-interface Props {
-    setSearchFilter: (
-        paylod: SetSearchMoviesFilterPayload,
-    ) => SetSearchMoviesFilterAction;
-}
+const HeaderComponentContainer = () => {
+    const navigate = useNavigate();
+    const { searchValue } = useParams();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const parsedParams = getSearchParams(searchParams);
 
-const HeaderComponentContainer = ({ setSearchFilter }: Props) => {
     const handleSearchClick = (search: string) => {
-        setSearchFilter({
-            searchBy: 'title',
-            option: search,
-        });
+        setSearchParams({ ...parsedParams, searchValue: search });
     };
 
-    return <Header onSearchClick={handleSearchClick} />;
+    return (
+        <Header
+            searchValue={parsedParams.searchValue || ''}
+            onSearchClick={handleSearchClick}
+        />
+    );
 };
 
-const mapDispatchToProps = {
-    setSearchFilter: setFilterMoviesAction,
-};
-
-export const HeaderContainer = connect(
-    undefined,
-    mapDispatchToProps,
-)(HeaderComponentContainer);
+export const HeaderContainer = HeaderComponentContainer;

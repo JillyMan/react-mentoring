@@ -7,6 +7,7 @@ import { MovieConfig } from 'shared/types/movies';
 interface Props {
     selectedOption: string;
     options: string[];
+    selectedSortOption: string;
     sortOptions: string[];
     movies: MovieConfig[];
 
@@ -18,6 +19,7 @@ interface Props {
 export const ContentMovies = ({
     selectedOption,
     options,
+    selectedSortOption,
     sortOptions,
     movies,
     onMovieClick,
@@ -31,7 +33,7 @@ export const ContentMovies = ({
                     selectedOption={selectedOption}
                     options={options}
                     sortOptions={sortOptions}
-                    selectedSort={sortOptions[0]}
+                    selectedSort={selectedSortOption}
                     onOptionChanged={(s) => onOptionChanged(s)}
                     onSortOptionChanged={(s) => onSortOptionChanged(s)}
                 />
