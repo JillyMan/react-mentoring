@@ -12,6 +12,7 @@ type Action = EditMovieConfigAction | CleanMovieConfigAction;
 export const initialState: ConfigurationMovieStore = {
     draftConfig: initialMovieConfig,
     changed: false,
+    loaded: false,
 };
 
 export const movieConfigurationReducer = (
@@ -24,6 +25,7 @@ export const movieConfigurationReducer = (
                 draftConfig: {
                     ...action.payload.config,
                 },
+                loaded: action.payload.config.id != 0,
                 changed: true,
             };
         }

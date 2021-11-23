@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from '@mui/material/Modal';
 import { configurationGenres } from 'shared/types/genres';
 import {
@@ -9,11 +9,12 @@ import {
 } from '../actions/actions';
 import { AppState } from 'shared/types/store';
 import { connect } from 'react-redux';
-import { ConfigurationMovieWithValidation } from '../components/configuration-movie-with-validation';
-import { InputValues } from 'shared/types/input-values';
+import { ConfigurationMovie } from '../components/configuration-movie';
+import { MovieConfig } from 'shared/types/movies';
 
 const mapStateToProps = (state: AppState) => ({
     draftConfig: state.draftMovieConfig.draftConfig,
+    loaded: state.draftMovieConfig.loaded,
 });
 
 const mapDispatchToProps = {
@@ -28,7 +29,6 @@ type DispatchProps = typeof mapDispatchToProps;
 
 interface OwnProps {
     id: number;
-    show: boolean;
     onCloseModal: () => void;
 }
 
@@ -36,43 +36,36 @@ type Props = StateProps & DispatchProps & OwnProps;
 
 const ConfigurationMovieUpdateComponentContainer = ({
     id,
-    show,
     draftConfig,
+    loaded,
     onCloseModal,
     loadMovieConfig,
-    editDraftConfig,
-    cleanMovieConfig,
     updateMovieConfig,
+    cleanMovieConfig,
 }: Props) => {
     useEffect(() => {
         loadMovieConfig({ id });
+        return () => {
+            cleanMovieConfig();
+        };
     }, [id]);
 
-    const onSubmitHandle = () => {
-        updateMovieConfig({ config: draftConfig });
+    const handleSubmit = (config: MovieConfig) => {
+        updateMovieConfig({ config });
         onCloseModal();
     };
 
-    const handleKeyValueChange = (key: string, value: InputValues) => {
-        editDraftConfig({
-            config: {
-                ...draftConfig,
-                [key]: value,
-            },
-        });
-    };
-
-    return (
-        <Modal open={show} onClose={onCloseModal}>
-            <ConfigurationMovieWithValidation
+    return loaded ? (
+        <Modal open onClose={onCloseModal}>
+            <ConfigurationMovie
                 configTitle='EDIT'
                 avaliableGenres={configurationGenres}
                 movieConfig={draftConfig}
-                onKeyValueChange={handleKeyValueChange}
-                onResetClick={cleanMovieConfig}
-                onSubmitClick={onSubmitHandle}
+                onSubmitClick={handleSubmit}
             />
         </Modal>
+    ) : (
+        <></>
     );
 };
 
