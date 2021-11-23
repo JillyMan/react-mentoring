@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useMemo } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import DatePicker from '@mui/lab/DatePicker';
 import SendIcon from '@mui/icons-material/Send';
 import {
@@ -9,12 +9,10 @@ import {
     ListItemText,
     OutlinedInput,
     Select,
-    SelectChangeEvent,
     MenuItem,
     Checkbox,
 } from '@mui/material';
 import {
-    initialMovieConfig,
     MovieConfig,
     movieConfigNames,
     validationMovieConfigSchema,
@@ -191,12 +189,10 @@ export const ConfigurationMovie = forwardRef(
                                 value={formik.values.runtime || ''}
                                 name={movieConfigNames.runtime}
                                 onChange={formik.handleChange}
-                                // onChange={(e) => {
-                                //     onKeyValueChange(
-                                //         movieConfigNames.runtime,
-                                //         Number(e.target.value),
-                                //     );
-                                // }}
+                                error={formik.touched.runtime && !!formik.errors.runtime}
+                                helperText={
+                                    formik.touched.runtime && formik.errors.runtime
+                                }
                             />
                         </Grid>
                         <Grid item xs={12}>

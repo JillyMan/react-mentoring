@@ -5,20 +5,14 @@ import { initialMovieConfig, MovieConfig } from 'shared/types/movies';
 import { AddMovieButton } from '../components/configuration-movie-add-button';
 import { configurationGenres } from 'shared/types/genres';
 import {
-    CleanMovieConfigAction,
     cleanMovieConfigAction,
     editMovieConfigAction,
-    EditMovieConfigAction,
-    EditMovieConfigPayload,
     saveNewMovieConfigAction,
     SaveNewMovieConfigAction,
     SaveNewMovieConfigPayload,
 } from '../actions/actions';
 import { AppState } from 'shared/types/store';
 import { connect } from 'react-redux';
-import { ConfigurationMovieWithValidation } from '../components/configuration-movie-with-validation';
-import { InputValues } from 'shared/types/input-values';
-import { useFormik } from 'formik';
 import { ConfigurationMovie } from '../components/configuration-movie';
 
 interface DispatchProps {
