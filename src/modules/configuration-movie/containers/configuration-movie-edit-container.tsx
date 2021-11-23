@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from '@mui/material/Modal';
 import { configurationGenres } from 'shared/types/genres';
 import {
@@ -14,6 +14,7 @@ import { MovieConfig } from 'shared/types/movies';
 
 const mapStateToProps = (state: AppState) => ({
     draftConfig: state.draftMovieConfig.draftConfig,
+    loaded: state.draftMovieConfig.loaded,
 });
 
 const mapDispatchToProps = {
@@ -36,13 +37,17 @@ type Props = StateProps & DispatchProps & OwnProps;
 const ConfigurationMovieUpdateComponentContainer = ({
     id,
     draftConfig,
+    loaded,
     onCloseModal,
     loadMovieConfig,
     updateMovieConfig,
+    cleanMovieConfig,
 }: Props) => {
-    console.log(id);
     useEffect(() => {
         loadMovieConfig({ id });
+        return () => {
+            cleanMovieConfig();
+        };
     }, [id]);
 
     const handleSubmit = (config: MovieConfig) => {
@@ -50,7 +55,7 @@ const ConfigurationMovieUpdateComponentContainer = ({
         onCloseModal();
     };
 
-    return draftConfig.id == id ? (
+    return loaded ? (
         <Modal open onClose={onCloseModal}>
             <ConfigurationMovie
                 configTitle='EDIT'
