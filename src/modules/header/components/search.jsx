@@ -23,6 +23,7 @@ class SearchBox extends React.Component {
             <Grid container spacing={2}>
                 <Grid item xs={8}>
                     <Input
+                        inputProps={{ 'data-testid': 'search-input' }}
                         id='outlined-search'
                         label={this.props.text}
                         type='search'

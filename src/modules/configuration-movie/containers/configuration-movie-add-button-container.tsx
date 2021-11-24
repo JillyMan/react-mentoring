@@ -52,17 +52,11 @@ const AddMovieButtonComponentContainer = ({ saveNewMovie }: Props) => {
     );
 };
 
-const mapStateToProps = (state: AppState) => ({
-    draftConfig: state.draftMovieConfig.draftConfig,
-});
-
 const mapDispatchToProps = {
-    editDraftConfig: editMovieConfigAction,
     saveNewMovie: saveNewMovieConfigAction,
-    cleanMovieConfig: cleanMovieConfigAction,
 };
 
 export const ConfigrationMovieAddButtonContainer = connect(
-    mapStateToProps,
+    undefined,
     mapDispatchToProps,
 )(AddMovieButtonComponentContainer);
