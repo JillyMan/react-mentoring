@@ -23,31 +23,24 @@ function renderComponent(
     );
 }
 
-describe('Configuration movie test', () => {
-    test('Sumbit button avalible', () => {
+describe('Configuration movie', () => {
+    test('Sumbit button is not avalible', () => {
         const submitClick = jest.fn();
         renderComponent(initialMovieConfig, submitClick);
         userEvent.click(screen.getByText('SUBMIT'));
         expect(submitClick).not.toHaveBeenCalled();
     });
 
-    it('click', () => {
+    it('click reset button to clean current movie config', () => {
         act(() => {
-            render(
-                <div>
-                    <label htmlFor='checkbox'>Check</label>
-                    <input id='checkbox' type='checkbox' />
-                </div>,
-            );
+            renderComponent({ ...initialMovieConfig }, jest.fn);
 
-            userEvent.click(screen.getByText('Check'));
-        });
-        expect(screen.getByLabelText('Check')).toBeChecked();
-    });
+            const title = 'Elden ring';
+            const element = screen.getByTestId('movie-title-id');
+            fireEvent.change(element, {
+                target: { value: title },
+            });
 
-    it('reset button', () => {
-        act(() => {
-            renderComponent({ ...initialMovieConfig, title: 'new title' }, jest.fn);
             const resetBtn = screen.getByText('RESET');
             resetBtn.click();
         });
