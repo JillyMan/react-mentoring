@@ -87,6 +87,7 @@ export const ConfigurationMovie = forwardRef(
                     >
                         <Grid item xs={8}>
                             <Input
+                                inputProps={{ 'data-testid': 'movie-title-id' }}
                                 label='Title'
                                 variant='outlined'
                                 style={configurationStyles.input}
