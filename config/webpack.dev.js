@@ -11,6 +11,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, '../dist'),
         filename: "[name].[contenthash].js",
+        publicPath: '/'
     },
     plugins: [
         new CleanWebpackPlugin(),
@@ -19,6 +20,7 @@ module.exports = {
     devtool: 'inline-source-map',
     devServer: {
         port: 3001,
+        historyApiFallback: true,
     },
     optimization: {
         splitChunks: {

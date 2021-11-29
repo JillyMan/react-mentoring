@@ -5,6 +5,7 @@ import DateAdapter from '@mui/lab/AdapterMoment';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { Provider } from 'react-redux';
 import { MainAppComponent } from 'main-app-component';
+import { BrowserRouter } from 'react-router-dom';
 
 interface AppProps {
     store: Store<AppState>;
@@ -12,10 +13,12 @@ interface AppProps {
 
 export const App = ({ store }: AppProps) => {
     return (
-        <LocalizationProvider dateAdapter={DateAdapter}>
-            <Provider store={store}>
-                <MainAppComponent />
-            </Provider>
-        </LocalizationProvider>
+        <BrowserRouter>
+            <LocalizationProvider dateAdapter={DateAdapter}>
+                <Provider store={store}>
+                    <MainAppComponent />
+                </Provider>
+            </LocalizationProvider>
+        </BrowserRouter>
     );
 };

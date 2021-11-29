@@ -38,7 +38,7 @@ export interface MoviesSearchFilter {
     sortOrder?: 'desc' | 'asc';
     searchValue?: string;
     searchBy?: 'title' | 'genres';
-    genresFilter: string[];
+    genresFilter?: string[];
 }
 
 export const movieConfigNames = {

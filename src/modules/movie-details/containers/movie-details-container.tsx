@@ -3,11 +3,8 @@ import { LinearProgress, Box } from '@mui/material';
 import { MovieConfig, initialMovieConfig } from 'shared/types/movies';
 import { MovieDetails } from '../components/movie-details';
 import { getMovie } from 'shared/services/movies-services';
-
-interface Props {
-    movieId: number;
-    onClose: () => void;
-}
+import { useNavigate, useParams } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
 
 const useMovie = (movieId: number) => {
     const [loading, setLoading] = useState(true);
@@ -29,14 +26,20 @@ const useMovie = (movieId: number) => {
     };
 };
 
-export const MovieDetailsContainer = ({ movieId, onClose }: Props) => {
-    const status = useMovie(movieId);
+export const MovieDetailsContainer = () => {
+    const { movieId } = useParams();
+    const navigate = useNavigate();
+    const status = useMovie(Number(movieId));
+    const [searchParams] = useSearchParams();
 
     return status.isLoading ? (
         <Box sx={{ width: '100%' }}>
             <LinearProgress />
         </Box>
     ) : (
-        <MovieDetails movie={status.movie} onClose={onClose} />
+        <MovieDetails
+            movie={status.movie}
+            onClose={() => navigate(`/search?${searchParams.toString()}`)}
+        />
     );
 };
