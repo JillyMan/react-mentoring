@@ -1,21 +1,24 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require('path');
+const webpack = require('webpack');
 
 const dirname = path.resolve(__dirname, '../src');
 
 module.exports = {
+    name: 'client',
+    target: 'web',
     mode: 'development',
     context: dirname,
-    entry: './index.tsx',
+    entry: './client.tsx',
     output: {
         path: path.resolve(__dirname, '../dist'),
-        filename: "[name].[contenthash].js",
-        publicPath: '/'
+        filename: '[name].[contenthash].js',
+        publicPath: '/',
     },
     plugins: [
         new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({ template: "./index.html" })
+        //new HtmlWebpackPlugin({ template: './index.html' }),
+        new webpack.HotModuleReplacementPlugin(),
     ],
     devtool: 'inline-source-map',
     devServer: {
@@ -25,15 +28,12 @@ module.exports = {
     optimization: {
         splitChunks: {
             chunks: 'all',
-        }
+        },
     },
     resolve: {
         roots: [dirname],
-        modules: [
-            path.resolve(dirname),
-            'node_modules',
-        ],
-        extensions: ['.ts', '.tsx', '.js', '.jsx', 'json']
+        modules: [path.resolve(dirname), 'node_modules'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx', 'json'],
     },
     module: {
         rules: [
@@ -41,8 +41,8 @@ module.exports = {
                 test: /\.(ts|tsx|js|jsx)$/,
                 exclude: /(node_modules)/,
                 use: {
-                    loader: "babel-loader"
-                }
+                    loader: 'babel-loader',
+                },
             },
             {
                 test: /\.(png|jpg|gif)$/i,
@@ -58,15 +58,15 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
-                    "style-loader",
+                    'style-loader',
                     {
-                        loader: "css-loader",
+                        loader: 'css-loader',
                         options: {
-                            modules: true
-                        }
-                    }
-                ]
+                            modules: true,
+                        },
+                    },
+                ],
             },
-        ]
+        ],
     },
-}
+};
