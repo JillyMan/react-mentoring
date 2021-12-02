@@ -15,11 +15,11 @@ function renderHTML(html, preloadedState) {
           <body>
             <div id="root">${html}</div>
               <script>
-              window.PRELOADED_STATE = ${JSON.stringify(preloadedState).replace(
-                  /</g,
-                  '\\u003c',
-              )}
-            </script>
+                window.PRELOADED_STATE = ${JSON.stringify(preloadedState).replace(
+                    /</g,
+                    '\\u003c',
+                )}
+              </script>
             <script src="/js/main.js"></script>
           </body>
         </html>
@@ -38,11 +38,11 @@ export default function serverRenderer() {
             .runSagas()
             .toPromise()
             .then(() => {
-                const html = renderToString(renderRoot());
                 const preloadedState = store.store.getState();
-
+                const html = renderToString(renderRoot());
                 res.send(renderHTML(html, preloadedState));
             });
+
         renderToString(renderRoot());
         store.close();
     };
