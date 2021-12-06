@@ -52,19 +52,28 @@ export default function serverRenderer() {
 
         renderToString(renderRoot());
 
-        return new Promise((resolve) => {
-            store.store.dispatch(
-                loadMoviesAction({
-                    searchFilter: {
-                        offset: 0,
-                        limit: 8,
-                        sortOrder: 'desc',
-                    },
-                }),
-            );
-            resolve(true);
-        }).then(() => {
-            store.close();
-        });
+        const url = new URL(req.url, 'http://example.com');
+        const searchParams = url.searchParams;
+
+        if (url.pathname === '/search') {
+            return new Promise((resolve) => {
+                store.store.dispatch(
+                    loadMoviesAction({
+                        searchFilter: {
+                            offset: 0,
+                            limit: 8,
+                            sortOrder: 'desc',
+                            searchValue: searchParams.get('searchValue'),
+                            genre: searchParams.get('Action'),
+                            searchBy: 'title',
+                            sortBy: searchParams.get('sortBy'),
+                        },
+                    }),
+                );
+                resolve(true);
+            }).then(() => {
+                store.close();
+            });
+        }
     };
 }
