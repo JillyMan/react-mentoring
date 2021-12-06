@@ -3,7 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 import { moviesSagas } from 'modules/content-movies/sagas';
 import { configurationMovieSagas } from 'modules/configuration-movie/sagas';
 
-function* rootSaga() {
+export function* rootSaga() {
     yield all([...moviesSagas, ...configurationMovieSagas].map((saga) => saga()));
 }
 

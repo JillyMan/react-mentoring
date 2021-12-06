@@ -1,24 +1,28 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import { Store } from 'redux';
 import { AppState } from 'shared/types/store';
 import DateAdapter from '@mui/lab/AdapterMoment';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { Provider } from 'react-redux';
 import { MainAppComponent } from 'main-app-component';
-import { BrowserRouter } from 'react-router-dom';
+import { hot } from 'react-hot-loader';
 
 interface AppProps {
     store: Store<AppState>;
+    Router: any;
+    location?: string;
 }
 
-export const App = ({ store }: AppProps) => {
+const App = ({ store, location, Router }: AppProps) => {
     return (
-        <BrowserRouter>
+        <Router location={location}>
             <LocalizationProvider dateAdapter={DateAdapter}>
                 <Provider store={store}>
                     <MainAppComponent />
                 </Provider>
             </LocalizationProvider>
-        </BrowserRouter>
+        </Router>
     );
 };
+
+export default hot(module)(App);

@@ -1,6 +1,6 @@
 import qs from 'qs';
-import { resolveProjectReferencePath } from 'typescript';
 import { Api, RequestBody } from './types/api';
+import 'cross-fetch/polyfill';
 
 interface FetchOptions<T> {
     method: string;
